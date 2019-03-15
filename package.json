@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "This is the server side of Dania_Science_Club-s-Web.",
   "main": "index.js",
+  "engines": {
+    "node": "10.15.0"
+  },
   "scripts": {
     "test": "node index.js",
-    "start": "node index.js",
-    "build": "webpack"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
