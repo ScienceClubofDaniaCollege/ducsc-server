@@ -4,11 +4,21 @@ const port = process.env.PORT || 3000
 
 app.get('/', (req, res) => res.send('Yahoo I am working!'))
 app.get('/register', (req, res) => {
-    res.send(`<h3 align="center" bgcolor="pink"> Hi <span color="blue">${req.query.lname}<span> thank you for testing our form</h3>`);
+    res.send(`<h3 align="center" style="background-color:pink;"> Hi <em>${req.query.lname}</em> thank you for testing our form</h3>. Checkout your submitted data bellow<br>
+    first name: ${req.query.fname}<br>
+    last name: ${req.query.lname}<br>
+    email: ${req.query.email}<br>
+    password: ${req.query.password}<br>
+    batch: ${req.query.batch}<br>
+    shift: ${req.query.shift}<br>
+    section: ${req.query.section}`);
     }
 );
-app.post('/login', (req, res) => {
-    res.send(req.body.password);
+app.get('/login', (req, res) => {
+    let loginData = {email: req.query.email, password: req.query.password};
+    res.send(`Login is not yer implemented. Checkout your submitted data bellow<br>
+    email: ${req.query.email}<br>
+    password: ${req.query.password}`);
     }
 );
 
