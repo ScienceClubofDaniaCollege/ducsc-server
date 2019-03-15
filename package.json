@@ -1,0 +1,24 @@
+{
+  "name": "back_end-dania_science_club-s-web",
+  "version": "1.0.0",
+  "description": "This is the server side of Dania_Science_Club-s-Web.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js",
+    "start": "node index.js",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaniaScienceClub/Back_end-Dania_Science_Club-s-Web.git"
+  },
+  "author": "Nurul Huda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DaniaScienceClub/Back_end-Dania_Science_Club-s-Web/issues"
+  },
+  "homepage": "https://github.com/DaniaScienceClub/Back_end-Dania_Science_Club-s-Web#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
