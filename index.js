@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-app.use(express.json());
+app.use(express.urlencoded());
 const port = process.env.PORT || 3000
 
 app.get('/', (req, res) => res.send('Yahoo I am working!'))
@@ -19,7 +19,7 @@ app.post('/login', (req, res) => {
     let loginData = {email: req.body.email, password: req.body.password};
     res.send(`Login is not yer implemented. Checkout your submitted data bellow<br>
     email: ${req.body.email}<br>
-    password: ${req.body.password}` + loginData);
+    password: ${req.body.password}`);
     }
 );
 
