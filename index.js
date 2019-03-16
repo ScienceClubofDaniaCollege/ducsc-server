@@ -5,7 +5,7 @@ const port = process.env.PORT || 3000
 
 app.get('/', (req, res) => res.send('Yahoo I am working!'))
 app.post('/register', (req, res) => {
-    res.send(`<h3 align="center" style="background-color:pink;"> Hi <em>${req.body.lname}</em> thank you for testing our form</h3>. Checkout your submitted data bellow<br>
+    res.send(`<h3 align="center" style="background-color:pink;"> Hi <em>${req.body.lname}</em> thank you for testing our form</h3>Checkout your submitted data bellow<br>
     first name: ${req.body.fname}<br>
     last name: ${req.body.lname}<br>
     email: ${req.body.email}<br>
