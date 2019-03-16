@@ -1,7 +1,22 @@
+const mongoose = require('mongoose');
 const express = require('express')
 const app = express()
 app.use(express.urlencoded());
 const port = process.env.PORT || 3000
+// db pass: DNYs67BakjfdBB3, db_user: dsc
+
+mongoose.connect('mongodb://dsc:DNYs67BakjfdBB3@ds261527.mlab.com:61527/dsc-member_list',{ useNewUrlParser: true }).then(()=> console.log('Conected to DB...'));
+
+const coustomerSchema = new mongoose.Schema({name: String,phone: String,address: String,acc_date: {type: Date, default: Date.now}});
+    let Coustomer = mongoose.model('Coustomers', coustomerSchema);
+
+    const createCoustomer = async (coustomerInfo) => {
+        let coustomer = new Coustomer(coustomerInfo);
+        const result = await coustomer.save();
+        // console.log(`New User${}`);
+        getUserNumber();
+    };
+    
 
 app.get('/', (req, res) => res.send('Yahoo I am working!'))
 app.post('/register', (req, res) => {
@@ -13,7 +28,13 @@ app.post('/register', (req, res) => {
     batch: ${req.body.batch}<br>
     shift: ${req.body.shift}<br>
     section: ${req.body.section}`);
+    
+    let user = {name: req.query.name,phone: req.query.phone,address: req.query.address}
+
+
+    createCoustomer(user);
     }
+        
 );
 app.post('/login', (req, res) => {
     let loginData = {email: req.body.email, password: req.body.password};
