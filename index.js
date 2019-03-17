@@ -7,32 +7,37 @@ const port = process.env.PORT || 3000
 
 mongoose.connect('mongodb://dsc:DNYs67BakjfdBB3@ds261527.mlab.com:61527/dsc-member_list',{ useNewUrlParser: true }).then(()=> console.log('Conected to DB...'));
 
-const coustomerSchema = new mongoose.Schema({name: String,phone: String,address: String,acc_date: {type: Date, default: Date.now}});
-    let Coustomer = mongoose.model('Coustomers', coustomerSchema);
+const memberSchema = new mongoose.Schema({fname: String,lname: String,email: String,batch: String, shift: String,section: String,password: String});
+    let Member = mongoose.model('Members', memberSchema);
 
-    const createCoustomer = async (coustomerInfo) => {
-        let coustomer = new Coustomer(coustomerInfo);
-        const result = await coustomer.save();
-        // console.log(`New User${}`);
-        getUserNumber();
+    const createMember = async (coustomerInfo) => {
+        let member = new Member(coustomerInfo);
+        const result = await member.save();
+        console.log(result);
     };
     
+// let testData = `<h3 align="center" style="background-color:pink;"> Hi <em>${req.body.lname}</em> thank you for testing our form</h3>Checkout your submitted data bellow<br>
+// first name: ${req.body.fname}<br>
+// last name: ${req.body.lname}<br>
+// email: ${req.body.email}<br>
+// password: ${req.body.section}<br>
+// batch: ${req.body.batch}<br>
+// shift: ${req.body.shift}<br>
+// section: ${req.body.section}`
 
 app.get('/', (req, res) => res.send('Yahoo I am working!'))
 app.post('/register', (req, res) => {
-    res.send(`<h3 align="center" style="background-color:pink;"> Hi <em>${req.body.lname}</em> thank you for testing our form</h3>Checkout your submitted data bellow<br>
-    first name: ${req.body.fname}<br>
-    last name: ${req.body.lname}<br>
-    email: ${req.body.email}<br>
-    password: ${req.body.password}<br>
-    batch: ${req.body.batch}<br>
-    shift: ${req.body.shift}<br>
-    section: ${req.body.section}`);
-    
-    let user = {name: req.query.name,phone: req.query.phone,address: req.query.address}
+let user = {fname: req.body.fname,
+                lname: req.body.lname,
+                email: req.body.email,
+                batch: req.body.batch,
+                shift: req.body.shift,
+                section: req.body.section,
+                password: req.body.section}
+    createMember(user);
+    res.send("result");
 
 
-    createCoustomer(user);
     }
         
 );
