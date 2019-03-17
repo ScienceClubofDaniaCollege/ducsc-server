@@ -33,7 +33,7 @@ let user = {fname: req.body.fname,
                 batch: req.body.batch,
                 shift: req.body.shift,
                 section: req.body.section,
-                password: req.body.section}
+                password: req.body.password}
     createMember(user);
     res.send("result");
 
