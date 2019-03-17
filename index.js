@@ -104,7 +104,10 @@ app.post('/login', (req, res) => {
     const sendUserData = async () => {
         const userData = await getMemberByLoginData(req.body.email, req.body.password);
         console.log(userData);
-        res.send(JSON.stringify(userData));
+        if (userData.length == 0){
+        res.send("Wrong email or password");
+        } else {res.send(JSON.stringify(userData));};
+        
     }
     sendUserData();
 });
