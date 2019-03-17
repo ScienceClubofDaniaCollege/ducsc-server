@@ -32,7 +32,6 @@ const memberSchema = new mongoose.Schema({
         console.log(result);
     };
 // function for getting all members
-    let allUsers;
     const getMembers = async () => {
         connectDB();
 
@@ -40,8 +39,6 @@ const memberSchema = new mongoose.Schema({
         allUsers = result;
     };
 // function for getting member by email
-
-    let reqUser;
     const getMemberByEmail = async (memberEmail) => {
         connectDB();
 
@@ -70,6 +67,7 @@ const memberSchema = new mongoose.Schema({
 app.get('/', (req, res) => res.send('Yahoo I am working!'));
 
 app.get('/members', (req, res) => {
+    let allUsers;
     getMembers();
     console.log(allUsers);
     res.send(JSON.stringify(allUsers));
@@ -81,6 +79,7 @@ app.get('/members', (req, res) => {
 // });
 
 app.get('/members/:password', (req, res) => {
+    let reqUser;
     getMemberByPassword(req.params.password);
     console.log(reqUser);
     res.send(JSON.stringify(reqUser));
@@ -94,6 +93,7 @@ app.post('/register', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
+    
     let loginData = {email: req.body.email, password: req.body.password};
     res.send(`Login is not yer implemented. Checkout your submitted data bellow<br>
     email: ${req.body.email}<br>
@@ -103,6 +103,7 @@ app.post('/login', (req, res) => {
 
 
 app.get('/member', (req, res) => {
+    let reqUser;
     getMemberByLoginData(req.query.email, req.query.password);
     console.log(reqUser);
     res.send(JSON.stringify(reqUser));
