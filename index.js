@@ -17,52 +17,36 @@ const memberSchema = new mongoose.Schema({
     section: String,
     password: String});
 
-    let Member = mongoose.model('Members', memberSchema);
+    const Member = mongoose.model('Members', memberSchema);
 
     const createMember = async (memberInfo) => {
         let member = new Member(memberInfo);
         const result = await member.save();
         console.log(result);
     };
+    let allUsers;
     const getMember = async () => {
         const result = await Member.find();
-        console.log(result);
-        
+        allUsers = result;
     };
     
 
 app.get('/', (req, res) => res.send('Yahoo I am working!'));
 
-app.get('/members', (req, res) => {getMember();
-    res.send( result);
+app.get('/members', (req, res) => {
+   getMember();
+    console.log(allUsers);
+    
+    res.send(JSON.stringify(allUsers));
 });
 
 app.post('/register', (req, res) => {
-let user = {fname: req.body.fname,
-                lname: req.body.lname,
-                email: req.body.email,
-                batch: req.body.batch,
-                phone: req.body.phone,
-                shift: req.body.shift,
-                section: req.body.section,
-                password: req.body.password}
-                console.log(req.body);
-                
+    console.log(req.body);      
     createMember(req.body);
-    res.send(`<h3 align="center" style="background-color:pink;"> Hi <em>${user.lname}</em> thank you for registering</h3>Checkout your submitted has been collected.<br>
-    first name: ${user.fname}<br>
-    last name: ${user.lname}<br>
-    email: ${user.email}<br>
-    phone: ${user.phone}<br>
-    password: ${user.password}<br>
-    batch: ${user.batch}<br>
-    shift: ${user.shift}<br>
-    section: ${user.section}`+ JSON.stringify(req.body));
+    res.send(`<h3 align="center" style="background-color:pink;"> Hi <em>${req.body.lname}</em> thank you for registering</h3>Your submitted data has been collected. Check them out bellow.<br>` +
+    JSON.stringify(req.body));
+});
 
-
-    }
-        
-);
 app.post('/login', (req, res) => {
     let loginData = {email: req.body.email, password: req.body.password};
     res.send(`Login is not yer implemented. Checkout your submitted data bellow<br>
