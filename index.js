@@ -35,7 +35,7 @@ let user = {fname: req.body.fname,
                 section: req.body.section,
                 password: req.body.password}
     createMember(user);
-    res.send("result");
+    res.send(user);
 
 
     }
