@@ -30,14 +30,22 @@ const memberSchema = new mongoose.Schema({
         let member = new Member(memberInfo);
         const result = await member.save();
         console.log(result);
+        mongoose.connection.close().then(()=> console.log('closed DB connection...'));
     };
 // function for getting all members
-    let allUsers = "all users";
     const getMembers = async () => {
-        connectDB();
-
+        await connectDB();
         const result = await Member.find();
-        allUsers = result;
+        await mongoose.connection.close().then(()=> console.log('closed DB connection...'));
+        return result;
+    };
+    // function for getting member by login data
+
+    const getMemberByLoginData = async (memberEmail, memberPassword) => {
+        await connectDB();
+        const result = await Member.find({email:memberEmail, password: memberPassword});
+        await mongoose.connection.close().then(()=> console.log('closed DB connection...'));
+        return result;
     };
 // function for getting member by email
 
@@ -47,6 +55,7 @@ const memberSchema = new mongoose.Schema({
 
         const result = await Member.find({email: memberEmail});
         reqUser = result;
+        mongoose.connection.close().then(()=> console.log('closed DB connection...'));
     };
 // function for getting member by password
 
@@ -55,24 +64,22 @@ const memberSchema = new mongoose.Schema({
 
         const result = await Member.find({password: memberPassword});
         reqUser = result;
-    };
-    
-// function for getting member by login data
+        mongoose.connection.close().then(()=> console.log('closed DB connection...'));
 
-    const getMemberByLoginData = async (memberEmail, memberPassword) => {
-        connectDB();
-
-        const result = await Member.find({email:memberEmail, password: memberPassword});
-        reqUser = result;
     };
+
     
 
 app.get('/', (req, res) => res.send('Yahoo I am working!'));
 
 app.get('/members', (req, res) => {
-    getMembers();
-    console.log(allUsers);
-    res.send(JSON.stringify(allUsers));
+    async function testF(){
+    allUsersD = await getMembers();
+    console.log(allUsersD);
+    res.send(JSON.stringify(allUsersD));
+    }
+    testF()
+
 });
 // app.get('/members/:email', (req, res) => {
 //     getMemberByEmail(req.params.email);
@@ -94,18 +101,22 @@ app.post('/register', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-    let loginData = {email: req.body.email, password: req.body.password};
-    res.send(`Login is not yer implemented. Checkout your submitted data bellow<br>
-    email: ${req.body.email}<br>
-    password: ${req.body.password}`);
+    const sendUserData = async () => {
+        const userData = await getMemberByLoginData(req.body.email, req.body.password);
+        console.log(userData);
+        res.send(JSON.stringify(userData));
     }
-);
+    sendUserData();
+});
 
 
 app.get('/member', (req, res) => {
-    getMemberByLoginData(req.query.email, req.query.password);
-    console.log(reqUser);
-    res.send(JSON.stringify(reqUser));
+    const sendUserData = async () => {
+        const userData = await getMemberByLoginData(req.query.email, req.query.password);
+        console.log(userData);
+        res.send(JSON.stringify(userData));
+    }
+    sendUserData();
 });
 
 
