@@ -24,9 +24,19 @@ const memberSchema = new mongoose.Schema({
         const result = await member.save();
         console.log(result);
     };
+    const getMember = async () => {
+        const result = await Member.find();
+        console.log(result);
+        
+    };
     
 
-app.get('/', (req, res) => res.send('Yahoo I am working!'))
+app.get('/', (req, res) => res.send('Yahoo I am working!'));
+
+app.get('/members', (req, res) => {getMember();
+    res.send( result);
+});
+
 app.post('/register', (req, res) => {
 let user = {fname: req.body.fname,
                 lname: req.body.lname,
@@ -36,7 +46,9 @@ let user = {fname: req.body.fname,
                 shift: req.body.shift,
                 section: req.body.section,
                 password: req.body.password}
-    createMember(user);
+                console.log(req.body);
+                
+    createMember(req.body);
     res.send(`<h3 align="center" style="background-color:pink;"> Hi <em>${user.lname}</em> thank you for registering</h3>Checkout your submitted has been collected.<br>
     first name: ${user.fname}<br>
     last name: ${user.lname}<br>
@@ -45,7 +57,7 @@ let user = {fname: req.body.fname,
     password: ${user.password}<br>
     batch: ${user.batch}<br>
     shift: ${user.shift}<br>
-    section: ${user.section}`);
+    section: ${user.section}`+ JSON.stringify(req.body));
 
 
     }
