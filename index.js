@@ -5,7 +5,9 @@ app.use(express.urlencoded());
 const port = process.env.PORT || 3000
 // db pass: DNYs67BakjfdBB3, db_user: dsc
 // connecting to db
+const connectDB = () => {
 mongoose.connect('mongodb://dsc:DNYs67BakjfdBB3@ds261527.mlab.com:61527/dsc-member_list',{ useNewUrlParser: true }).then(()=> console.log('Conected to DB...'));
+}
 // creating schema and model
 const memberSchema = new mongoose.Schema({
     fname: String,
@@ -24,6 +26,7 @@ const memberSchema = new mongoose.Schema({
 
 // function for creating member
     const createMember = async (memberInfo) => {
+        connectDB();
         let member = new Member(memberInfo);
         const result = await member.save();
         console.log(result);
@@ -31,6 +34,8 @@ const memberSchema = new mongoose.Schema({
 // function for getting all members
     let allUsers;
     const getMembers = async () => {
+        connectDB();
+
         const result = await Member.find();
         allUsers = result;
     };
@@ -38,12 +43,16 @@ const memberSchema = new mongoose.Schema({
 
     let reqUser;
     const getMemberByEmail = async (memberEmail) => {
+        connectDB();
+
         const result = await Member.find({email: memberEmail});
         reqUser = result;
     };
 // function for getting member by password
 
     const getMemberByPassword = async (memberPassword) => {
+        connectDB();
+
         const result = await Member.find({password: memberPassword});
         reqUser = result;
     };
@@ -51,6 +60,8 @@ const memberSchema = new mongoose.Schema({
 // function for getting member by login data
 
     const getMemberByLoginData = async (memberEmail, memberPassword) => {
+        connectDB();
+
         const result = await Member.find({email:memberEmail, password: memberPassword});
         reqUser = result;
     };
