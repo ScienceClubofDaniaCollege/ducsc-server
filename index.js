@@ -7,23 +7,24 @@ const port = process.env.PORT || 3000
 
 mongoose.connect('mongodb://dsc:DNYs67BakjfdBB3@ds261527.mlab.com:61527/dsc-member_list',{ useNewUrlParser: true }).then(()=> console.log('Conected to DB...'));
 
-const memberSchema = new mongoose.Schema({fname: String,lname: String,email: String,batch: String, shift: String,section: String,password: String});
+const memberSchema = new mongoose.Schema({
+    fname: String,
+    lname: String,
+    email: String,
+    phone: String,
+    batch: String,
+    shift: String,
+    section: String,
+    password: String});
+
     let Member = mongoose.model('Members', memberSchema);
 
-    const createMember = async (coustomerInfo) => {
-        let member = new Member(coustomerInfo);
+    const createMember = async (memberInfo) => {
+        let member = new Member(memberInfo);
         const result = await member.save();
         console.log(result);
     };
     
-// let testData = `<h3 align="center" style="background-color:pink;"> Hi <em>${req.body.lname}</em> thank you for testing our form</h3>Checkout your submitted data bellow<br>
-// first name: ${req.body.fname}<br>
-// last name: ${req.body.lname}<br>
-// email: ${req.body.email}<br>
-// password: ${req.body.section}<br>
-// batch: ${req.body.batch}<br>
-// shift: ${req.body.shift}<br>
-// section: ${req.body.section}`
 
 app.get('/', (req, res) => res.send('Yahoo I am working!'))
 app.post('/register', (req, res) => {
@@ -31,11 +32,20 @@ let user = {fname: req.body.fname,
                 lname: req.body.lname,
                 email: req.body.email,
                 batch: req.body.batch,
+                phone: req.body.phone,
                 shift: req.body.shift,
                 section: req.body.section,
                 password: req.body.password}
     createMember(user);
-    res.send(user);
+    res.send(`<h3 align="center" style="background-color:pink;"> Hi <em>${user.lname}</em> thank you for registering</h3>Checkout your submitted has been collected.<br>
+    first name: ${user.fname}<br>
+    last name: ${user.lname}<br>
+    email: ${user.email}<br>
+    phone: ${user.phone}<br>
+    password: ${user.password}<br>
+    batch: ${user.batch}<br>
+    shift: ${user.shift}<br>
+    section: ${user.section}`);
 
 
     }
@@ -49,4 +59,4 @@ app.post('/login', (req, res) => {
     }
 );
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`Listening on port ${port}!`))
