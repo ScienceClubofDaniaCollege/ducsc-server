@@ -24,7 +24,7 @@ const memberSchema = new mongoose.Schema({
     section: String,
     password: String});
 
-    const Member = mongoose.model('Members', memberSchema);
+    const Member = mongoose.model('New-Members', memberSchema);
 
 
 
