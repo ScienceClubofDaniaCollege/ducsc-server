@@ -1,9 +1,9 @@
-var nodemailer = require('nodemailer');
+const sendEmailToNewUser = require('./mailer');
 const mongoose = require('mongoose');
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 app.use(express.urlencoded());
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 // const getMembers = require('./register')
 // db pass: DNYs67BakjfdBB3, db_user: dsc
 
@@ -11,31 +11,7 @@ const port = process.env.PORT || 3000
 
 
 
-function sendEmailToNewUser(emailAddress){
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-        user: 'daniascienceclub@gmail.com',
-        pass: 'Dsc338899'
-        }
-    });
-    
-    var mailOptions = {
-        from: 'daniascienceclub@gmail.com',
-        to: emailAddress,
-        subject: 'Sending Email using Node.js',
-        text: 'That was easy!'
-    };
-    
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-        console.log(error);
-        } else {
-        console.log('Email sent: ' + info.response);
-        }
-    });
 
-}
 
 
 
