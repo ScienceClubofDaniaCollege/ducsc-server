@@ -1,3 +1,4 @@
+var nodemailer = require('nodemailer');
 const mongoose = require('mongoose');
 const express = require('express')
 const app = express()
@@ -5,6 +6,49 @@ app.use(express.urlencoded());
 const port = process.env.PORT || 3000
 // const getMembers = require('./register')
 // db pass: DNYs67BakjfdBB3, db_user: dsc
+
+
+
+
+
+function sendEmailToNewUser(emailAddress){
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+        user: 'daniascienceclub@gmail.com',
+        pass: 'Dsc338899'
+        }
+    });
+    
+    var mailOptions = {
+        from: 'daniascienceclub@gmail.com',
+        to: emailAddress,
+        subject: 'Sending Email using Node.js',
+        text: 'That was easy!'
+    };
+    
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+        console.log(error);
+        } else {
+        console.log('Email sent: ' + info.response);
+        }
+    });
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 // connecting to db
 const connectDB = () => {
     mongoose.connect('mongodb://dsc:DNYs67BakjfdBB3@ds261527.mlab.com:61527/dsc-member_list',{ useNewUrlParser: true }).then(()=> console.log('Conected to DB...'));
@@ -98,6 +142,7 @@ app.get('/members/:password', (req, res) => {
 app.post('/register', (req, res) => {
     console.log(req.body);      
     createMember(req.body);
+    sendEmailToNewUser(req.body.email);
     res.send(`<h3 align="center" style="background-color:pink;"> Hi <em>${req.body.lname}</em> thank you for registering</h3>Your submitted data has been collected. Check them out bellow.<br>` +
     JSON.stringify(req.body));
 });
@@ -133,7 +178,7 @@ app.get('/members', (req, res) => {
 
 });
 
-console.log(getMembers);
-
 app.listen(port, () => console.log(`Listening on port ${port}!`))
+
+
 
