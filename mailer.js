@@ -25,4 +25,4 @@ function sendEmailToNewUser(emailAddress){
     });
 
 }
-exports.module = sendEmailToNewUser;
+exports.sendEmailToNewUser = sendEmailToNewUser;

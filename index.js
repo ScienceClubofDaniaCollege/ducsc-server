@@ -1,4 +1,4 @@
-const sendEmailToNewUser = require('./mailer');
+const mailer = require('./mailer');
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
@@ -118,7 +118,7 @@ app.get('/members/:password', (req, res) => {
 app.post('/register', (req, res) => {
     console.log(req.body);      
     createMember(req.body);
-    sendEmailToNewUser(req.body.email);
+    mailer.sendEmailToNewUser(req.body.email);
     res.send(`<h3 align="center" style="background-color:pink;"> Hi <em>${req.body.lname}</em> thank you for registering</h3>Your submitted data has been collected. Check them out bellow.<br>` +
     JSON.stringify(req.body));
 });
@@ -155,6 +155,9 @@ app.get('/members', (req, res) => {
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}!`))
+// console.log(mailer.sendEmailToNewUser);
+// mailer.sendEmailToNewUser('nurulhuda859g@gmail.com');
+
 
 
 
