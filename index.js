@@ -3,17 +3,22 @@ const express = require('express')
 const app = express()
 app.use(express.urlencoded());
 const port = process.env.PORT || 3000
+// const getMembers = require('./register')
 // db pass: DNYs67BakjfdBB3, db_user: dsc
 // connecting to db
 const connectDB = () => {
-mongoose.connect('mongodb://dsc:DNYs67BakjfdBB3@ds261527.mlab.com:61527/dsc-member_list',{ useNewUrlParser: true }).then(()=> console.log('Conected to DB...'));
-}
+    mongoose.connect('mongodb://dsc:DNYs67BakjfdBB3@ds261527.mlab.com:61527/dsc-member_list',{ useNewUrlParser: true }).then(()=> console.log('Conected to DB...'));
+    }
 // creating schema and model
 const memberSchema = new mongoose.Schema({
     fname: String,
     lname: String,
     email: String,
     phone: String,
+    roll: Number,
+    message: String,
+    memberId: String,
+    photo: Buffer,
     batch: String,
     shift: String,
     section: String,
@@ -23,7 +28,12 @@ const memberSchema = new mongoose.Schema({
 
 
 
-
+const getMembers = async () => {
+    await connectDB();
+    const result = await Member.find();
+    await mongoose.connection.close().then(()=> console.log('closed DB connection...'));
+    return result;
+};
 // function for creating member
     const createMember = async (memberInfo) => {
         connectDB();
@@ -33,12 +43,12 @@ const memberSchema = new mongoose.Schema({
         mongoose.connection.close().then(()=> console.log('closed DB connection...'));
     };
 // function for getting all members
-    const getMembers = async () => {
-        await connectDB();
-        const result = await Member.find();
-        await mongoose.connection.close().then(()=> console.log('closed DB connection...'));
-        return result;
-    };
+    // const getMembers = async () => {
+    //     await connectDB();
+    //     const result = await Member.find();
+    //     await mongoose.connection.close().then(()=> console.log('closed DB connection...'));
+    //     return result;
+    // };
     // function for getting member by login data
 
     const getMemberByLoginData = async (memberEmail, memberPassword) => {
@@ -72,15 +82,7 @@ const memberSchema = new mongoose.Schema({
 
 app.get('/', (req, res) => res.send('Yahoo I am working!'));
 
-app.get('/members', (req, res) => {
-    async function testF(){
-    allUsersD = await getMembers();
-    console.log(allUsersD);
-    res.send(JSON.stringify(allUsersD));
-    }
-    testF()
 
-});
 // app.get('/members/:email', (req, res) => {
 //     getMemberByEmail(req.params.email);
 //     console.log(reqUser);
@@ -121,8 +123,17 @@ app.get('/member', (req, res) => {
     }
     sendUserData();
 });
+app.get('/members', (req, res) => {
+    async function testF(){
+    allUsersD = await getMembers();
+    console.log(allUsersD);
+    res.send(JSON.stringify(allUsersD));
+    }
+    testF()
 
+});
 
-
+console.log(getMembers);
 
 app.listen(port, () => console.log(`Listening on port ${port}!`))
+
