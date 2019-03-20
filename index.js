@@ -191,8 +191,20 @@ app.post('/register', multer(multerConfig).single('photo'), (req, res) => {
          
     createMember(req.body);
     mailer.sendEmailToNewUser(req.body.email);
-    res.send(`<h3 align="center" style="background-color:pink;"> Hi <em>${req.body.lname}</em> thank you for registering</h3>Your submitted data has been collected. Check them out bellow.<br>` +
-    JSON.stringify(req.body));
+    res.send(`
+    <html>
+    </body>
+    <h3 align="center" style="background-color:pink;"> Hi <em>${req.body.lname}</em> thank you for registering</h3>Your submitted data has been collected. Check them out bellow.<br>
+    <img src="http://dscapi.herokuapp.com/static/${req.file.filename}" width="200px" height="auto">
+    <p>${JSON.stringify(req.body)}</p>
+    <script>
+  setTimeout(function () {
+     // after 4 seconds
+     window.location = "https://daniascienceclub.cf/html/login.html";
+  }, 4000)
+</script>
+    </body>
+    </html>`);
 });
 
 app.post('/login', (req, res) => {
