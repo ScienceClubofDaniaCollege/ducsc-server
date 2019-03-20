@@ -5,6 +5,13 @@ const express = require('express');
 const app = express();
 app.use(express.urlencoded({extended:false}));
 const port = process.env.PORT || 3000;
+
+
+
+app.set('view engine', 'pug')
+app.set('views', './html')
+
+
 // const getMembers = require('./register')
 // db pass: DNYs67BakjfdBB3, db_user: dsc
 
@@ -122,15 +129,10 @@ const getMembersEmail = async () => {
 // function for creating member
     const createMember = async (memberInfo) => {
         await connectDB();
-
-
-    
-
-
         let member = new Member(memberInfo);
         const result = await member.save();
-        console.log(result);
         mongoose.connection.close().then(()=> console.log('closed DB connection...'));
+        return result;
     };
 // function for getting all members
     // const getMembers = async () => {
@@ -185,34 +187,25 @@ app.get('/members/:password', (req, res) => {
 });
 
 app.post('/register', multer(multerConfig).single('photo'), (req, res) => {
-    console.log(req.file.filename); 
+    async function testG(){
     req.body.photo = req.file.filename;
-    console.log(req.body);
-         
-    createMember(req.body);
-    mailer.sendEmailToNewUser(req.body.email);
-    res.send(`
-    <html>
-    <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1">
-    </head>
-    </body>
-    <h3 align="center" style="background-color:pink;"> Hi <em>${req.body.lname}</em> thank you for registering</h3>Your submitted data has been collected. Check them out bellow.<br>
-    <img align="center" src="http://dscapi.herokuapp.com/static/${req.file.filename}" width="200px" height="auto">
-    <h1 color="red">You will be redirected to the login page in 10 seconds.</h1>
-    <p>${JSON.stringify(req.body)}</p>
-    <script>setTimeout(function () {window.location = "https://daniascienceclub.cf/html/login.html";}, 9000);</script>
-    </body>
-    </html>`);
+    userData = await createMember(req.body);
+    console.log(userData);  
+    // mailer.sendEmailToNewUser(req.body.email);
+    res.render('index', userData);
+    }
+    testG()
+
+    
 });
 
 app.post('/login', (req, res) => {
     const sendUserData = async () => {
-        const userData = await getMemberByLoginData(req.body.email, req.body.password);
+        userData = await getMemberByLoginData(req.body.email, req.body.password);
         console.log(userData);
         if (userData.length == 0){
         res.send("Wrong email or password");
-        } else {res.send(JSON.stringify(userData));};
+        } else {res.render('index', userData);};
         
     }
     sendUserData();
@@ -227,15 +220,17 @@ app.get('/member', (req, res) => {
     }
     sendUserData();
 });
-app.get('/members', (req, res) => {
-    async function testF(){
-    allUsersD = await getMembers();
-    console.log(allUsersD);
-    res.send(JSON.stringify(allUsersD));
-    }
-    testF()
 
-});
+
+app.get('/members', function (req, res) {
+    async function testF(){
+        userData = await getMembers();
+        console.log(userData);
+    res.render('index', userData)
+        }
+        testF()
+  })
+
 
 app.listen(port, () => console.log(`Listening on port ${port}! http://localhost:${port}/`));
 // console.log(mailer.sendEmailToNewUser);

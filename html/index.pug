@@ -1,0 +1,34 @@
+doctype html
+html
+    head
+        style.
+            td {padding:5px};
+            h1 {text-align: center;};
+    body
+        h1(style="text-align: center;") Here is all information about you that we have in our databases.
+        //- - const users = [{"_id":"s5c91b6e25c1e530274c32215","fname":"Nurul","lname":"Huda","email":"nurulhuda859g@gmail.com","password":"111111","roll":202563,"shift":"Day","batch":"HSC-20","section":"S4","phone":"01948297466","message":"626","memberId":"20-D-S4-2563","photo":"20-D-S4-2563-1553053409915.png","__v":0}]
+        each n, i in userData
+            table(style="border:1px solid black" border="1" cellspacing="0" align="center")
+                tr
+                    th Picture
+                    th Member ID
+                    th Name
+                    th Email
+                    th Phone
+                    th Batch
+                    th Section
+                    th Shift
+                    th Roll
+                tr
+                    - const fullName = n.fname+' '+n.lname;
+                    td
+                        img(src=`http://localhost:3000/static/${n.photo}`, alt=`${fullName}'s Picture` width="200px")
+                    td= n.memberId
+                    td= fullName
+                    td=n.email
+                    td=n.phone
+                    td=n.batch
+                    td=n.section
+                    td=n.shift
+                    td=n.roll
+            br
