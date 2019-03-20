@@ -193,10 +193,13 @@ app.post('/register', multer(multerConfig).single('photo'), (req, res) => {
     mailer.sendEmailToNewUser(req.body.email);
     res.send(`
     <html>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1">
+    </head>
     </body>
     <h3 align="center" style="background-color:pink;"> Hi <em>${req.body.lname}</em> thank you for registering</h3>Your submitted data has been collected. Check them out bellow.<br>
-    <img src="http://dscapi.herokuapp.com/static/${req.file.filename}" width="200px" height="auto">
-    <h1>You will be redirected to the login page in 10 seconds.</h1>
+    <img align="center" src="http://dscapi.herokuapp.com/static/${req.file.filename}" width="200px" height="auto">
+    <h1 color="red">You will be redirected to the login page in 10 seconds.</h1>
     <p>${JSON.stringify(req.body)}</p>
     <script>
   setTimeout(function () {
