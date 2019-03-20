@@ -201,12 +201,7 @@ app.post('/register', multer(multerConfig).single('photo'), (req, res) => {
     <img align="center" src="http://dscapi.herokuapp.com/static/${req.file.filename}" width="200px" height="auto">
     <h1 color="red">You will be redirected to the login page in 10 seconds.</h1>
     <p>${JSON.stringify(req.body)}</p>
-    <script>
-        setTimeout(function () {
-        // after 10 seconds
-        window.location = "https://daniascienceclub.cf/html/login.html";
-        }, 9000)
-<       /script>
+    <script>setTimeout(function () {window.location = "https://daniascienceclub.cf/html/login.html";}, 9000);</script>
     </body>
     </html>`);
 });
