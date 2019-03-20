@@ -202,11 +202,11 @@ app.post('/register', multer(multerConfig).single('photo'), (req, res) => {
     <h1 color="red">You will be redirected to the login page in 10 seconds.</h1>
     <p>${JSON.stringify(req.body)}</p>
     <script>
-  setTimeout(function () {
-     // after 10 seconds
-     window.location = "https://daniascienceclub.cf/html/login.html";
-  }, 1000)
-</script>
+        setTimeout(function () {
+        // after 10 seconds
+        window.location = "https://daniascienceclub.cf/html/login.html";
+        }, 9000)
+<       /script>
     </body>
     </html>`);
 });
