@@ -22,7 +22,7 @@ html
                 tr
                     - const fullName = n.fname+' '+n.lname;
                     td
-                        img(src=`http://localhost:3000/static/${n.photo}`, alt=`${fullName}'s Picture` width="200px")
+                        img(src=`https://dscapi.herokuapp.com/static/${n.photo}`, alt=`${fullName}'s Picture` width="200px")
                     td= n.memberId
                     td= fullName
                     td=n.email
