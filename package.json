@@ -24,6 +24,7 @@
     "express": "^4.16.4",
     "formidable": "^1.2.1",
     "mongoose": "^5.4.19",
+    "multer": "^1.4.1",
     "nodemailer": "^5.1.1",
     "var": "^0.3.2"
   }

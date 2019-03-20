@@ -1,20 +1,72 @@
 // const dbQuery = require('./allQueryFunction');
-var formidable = require('formidable');
-var fs = require('fs');
 const mailer = require('./mailer');
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended:false}));
 const port = process.env.PORT || 3000;
 // const getMembers = require('./register')
 // db pass: DNYs67BakjfdBB3, db_user: dsc
 
+var multer  = require('multer')
+// var upload = multer({ dest: 'uploads/members-photo/' })
+ 
 
 
 
 
+const multerConfig = {
+    
+    storage: multer.diskStorage({
+     //Setup where the user's file will go
+     destination: function(req, file, next){
+       next(null, './uploads/members-photo');
+       },   
+        
+        //Then give the file a unique name
+        filename: function(req, file, next){
+            // console.log(file);
+            console.log(req.body);
 
+            function generateMemberId(){
+                var batch = req.body.batch;
+                var shift = req.body.shift;
+                var section = req.body.section;
+                var roll = req.body.roll;
+                var shiftSymbol = shift.slice(0,1);
+                var tempId = batch+"-"+shiftSymbol+"-"+section+"-"+roll.slice(2,20);
+                var id = tempId.slice(4,20);
+                return id;
+            }
+            var memberId = generateMemberId();
+
+            console.log(memberId);
+            
+
+
+            const ext = file.mimetype.split('/')[1];
+            // next(null, file.fieldname + '-' + file.originalname	+ '-' + Date.now()+ '-' + req + '.'+ext);
+            next(null, memberId	+ '-' + Date.now()+'.'+ext);
+          }
+        }),   
+        
+        //A means of ensuring only images are uploaded. 
+        fileFilter: function(req, file, next){
+              if(!file){
+                next();
+              }
+            const image = file.mimetype.startsWith('image/');
+            if(image){
+              console.log('photo uploaded');
+              next(null, true);
+            }else{
+              console.log("file not supported");
+              
+              //TODO:  A better message response to user on failure.
+              return next();
+            }
+        }
+      };
 
 
 
@@ -38,13 +90,13 @@ const memberSchema = new mongoose.Schema({
     roll: Number,
     message: String,
     memberId: String,
-    photo: Buffer,
     batch: String,
     shift: String,
     section: String,
+    photo: String,
     password: String});
 
-    const Member = mongoose.model('Test-Members', memberSchema);
+    const Member = mongoose.model('Test3-Members', memberSchema);
 
 
 
@@ -129,26 +181,13 @@ app.get('/members/:password', (req, res) => {
     res.send(JSON.stringify(reqUser));
 });
 
-app.post('/register', (req, res) => {
-
-
-    var form = new formidable.IncomingForm();
-    form.parse(req, function (err, fields, files) {
-      var oldpath = files.photo.path;
-      var newpath = 'public/members-images/' + files.photo.name;
-    //   var newpath = 'C:/Users/nurulhuda859/Desktop/' + files.photo.name;
-      fs.rename(oldpath, newpath, function (err) {
-        if (err) throw err;
-        console.log('File uploaded and moved!');
-        
-      });
- });
-
-
-
-    // console.log(req.body);      
-    // createMember(req.body);
-    // mailer.sendEmailToNewUser(req.body.email);
+app.post('/register', multer(multerConfig).single('photo'), (req, res) => {
+    console.log(req.file.filename); 
+    req.body.photo = req.file.filename;
+    console.log(req.body);
+         
+    createMember(req.body);
+    mailer.sendEmailToNewUser(req.body.email);
     res.send(`<h3 align="center" style="background-color:pink;"> Hi <em>${req.body.lname}</em> thank you for registering</h3>Your submitted data has been collected. Check them out bellow.<br>` +
     JSON.stringify(req.body));
 });
@@ -187,5 +226,3 @@ app.get('/members', (req, res) => {
 app.listen(port, () => console.log(`Listening on port ${port}! http://localhost:${port}/`));
 // console.log(mailer.sendEmailToNewUser);
 // mailer.sendEmailToNewUser('nurulhuda859g@gmail.com');
-
-
