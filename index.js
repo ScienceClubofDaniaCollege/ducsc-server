@@ -13,6 +13,9 @@ var multer  = require('multer')
  
 
 
+// app.use(express.static('public'));
+app.use('/static', express.static('public'));
+
 
 
 const multerConfig = {
@@ -20,7 +23,7 @@ const multerConfig = {
     storage: multer.diskStorage({
      //Setup where the user's file will go
      destination: function(req, file, next){
-       next(null, './uploads/members-photo');
+       next(null, './public');
        },   
         
         //Then give the file a unique name
