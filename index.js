@@ -1,3 +1,6 @@
+// const dbQuery = require('./allQueryFunction');
+var formidable = require('formidable');
+var fs = require('fs');
 const mailer = require('./mailer');
 const mongoose = require('mongoose');
 const express = require('express');
@@ -6,9 +9,6 @@ app.use(express.urlencoded());
 const port = process.env.PORT || 3000;
 // const getMembers = require('./register')
 // db pass: DNYs67BakjfdBB3, db_user: dsc
-
-
-
 
 
 
@@ -44,7 +44,7 @@ const memberSchema = new mongoose.Schema({
     section: String,
     password: String});
 
-    const Member = mongoose.model('New-Members', memberSchema);
+    const Member = mongoose.model('Test-Members', memberSchema);
 
 
 
@@ -54,9 +54,24 @@ const getMembers = async () => {
     await mongoose.connection.close().then(()=> console.log('closed DB connection...'));
     return result;
 };
+
+const getMembersEmail = async () => {
+    allUsersD = await getMembers();
+    let result = allUsersD.map(a => a.email);
+    let fresult = result.toString();
+    // console.log(fresult);
+    return fresult;
+    }
+    
+
 // function for creating member
     const createMember = async (memberInfo) => {
-        connectDB();
+        await connectDB();
+
+
+    
+
+
         let member = new Member(memberInfo);
         const result = await member.save();
         console.log(result);
@@ -99,8 +114,7 @@ const getMembers = async () => {
     };
 
     
-
-app.get('/', (req, res) => res.send('Yahoo I am working!'));
+app.get('/', (req, res) => res.redirect('https://daniascienceclub.cf'));
 
 
 // app.get('/members/:email', (req, res) => {
@@ -116,9 +130,25 @@ app.get('/members/:password', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-    console.log(req.body);      
-    createMember(req.body);
-    mailer.sendEmailToNewUser(req.body.email);
+
+
+    var form = new formidable.IncomingForm();
+    form.parse(req, function (err, fields, files) {
+      var oldpath = files.photo.path;
+      var newpath = 'public/members-images/' + files.photo.name;
+    //   var newpath = 'C:/Users/nurulhuda859/Desktop/' + files.photo.name;
+      fs.rename(oldpath, newpath, function (err) {
+        if (err) throw err;
+        console.log('File uploaded and moved!');
+        
+      });
+ });
+
+
+
+    // console.log(req.body);      
+    // createMember(req.body);
+    // mailer.sendEmailToNewUser(req.body.email);
     res.send(`<h3 align="center" style="background-color:pink;"> Hi <em>${req.body.lname}</em> thank you for registering</h3>Your submitted data has been collected. Check them out bellow.<br>` +
     JSON.stringify(req.body));
 });
@@ -154,10 +184,8 @@ app.get('/members', (req, res) => {
 
 });
 
-app.listen(port, () => console.log(`Listening on port ${port}!`))
+app.listen(port, () => console.log(`Listening on port ${port}! http://localhost:${port}/`));
 // console.log(mailer.sendEmailToNewUser);
 // mailer.sendEmailToNewUser('nurulhuda859g@gmail.com');
-
-
 
 
