@@ -1,7 +1,5 @@
-// const dbQuery = require('./allQueryFunction');
 const mailer = require('./mailer');
-const mailer = require('./mailer');
-const mongoose = require('mongoose');
+const db = require('./modules');
 const express = require('express');
 const app = express();
 app.use(express.urlencoded({extended:false}));
@@ -65,40 +63,34 @@ const multerConfig = {
 app.get('/', (req, res) => res.redirect('https://daniascienceclub.cf'));
 
 app.post('/register', multer(multerConfig).single('photo'), (req, res) => {
-    async function testG(){
-    req.body.photo = req.file.filename;
-    userData = await createMember(req.body);
-    console.log(userData);  
-    // mailer.sendEmailToNewUser(req.body.email);
-    res.render('index', userData);
+    const createMember2 = async () => {
+        req.body.photo = req.file.filename;
+        await db.createMember(req.body);
     }
-    testG()
-
-    
+    createMember2();
+    res.redirect('https://daniascienceclub.cf/html/login.html')
 });
 
 app.post('/login', (req, res) => {
-    const sendUserData = async () => {
-        userData = await getMemberByLoginData(req.body.email, req.body.password);
+    const sendMemberData = async () => {
+        userData = await db.getMemberByLoginData(req.body.email, req.body.password);
         console.log(userData);
         if (userData.length == 0){
-        res.send("Wrong email or password");
+        res.status(404).send("Wrong email or password");
         } else {res.render('index', userData);};
-        
     }
-    sendUserData();
+    sendMemberData();
 });
 
 app.get('/members', function (req, res) {
-    async function testF(){
-        userData = await getMembers();
+    async function sendMembers(){
+        userData = await db.getMembers();
         console.log(userData);
     res.render('index', userData)
         }
-        testF()
+        sendMembers()
   })
 
 
 app.listen(port, () => console.log(`Listening on port ${port}! http://localhost:${port}/`));
-// console.log(mailer.sendEmailToNewUser);
-// mailer.sendEmailToNewUser('nurulhuda859g@gmail.com');
+// console.log(db);
