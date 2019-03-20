@@ -196,12 +196,13 @@ app.post('/register', multer(multerConfig).single('photo'), (req, res) => {
     </body>
     <h3 align="center" style="background-color:pink;"> Hi <em>${req.body.lname}</em> thank you for registering</h3>Your submitted data has been collected. Check them out bellow.<br>
     <img src="http://dscapi.herokuapp.com/static/${req.file.filename}" width="200px" height="auto">
+    <h1>You will be redirected to the login page in 10 seconds.</h1>
     <p>${JSON.stringify(req.body)}</p>
     <script>
   setTimeout(function () {
-     // after 4 seconds
+     // after 10 seconds
      window.location = "https://daniascienceclub.cf/html/login.html";
-  }, 4000)
+  }, 1000)
 </script>
     </body>
     </html>`);
