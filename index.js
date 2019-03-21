@@ -1,6 +1,6 @@
 // set the following env variables
-    // export process.env.DSC_gmail_pass=<gmail password>
-    // export process.env.DSC_db=<databasse connection string>
+    // set process.env.DSC_gmail_pass=<gmail password>
+    // set process.env.DSC_db=<databasse connection string>
 const mailer = require('./mailer');
 const env = require('./env');
 const db = require('./db');
