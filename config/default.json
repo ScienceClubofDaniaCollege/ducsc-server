@@ -1,0 +1,4 @@
+{
+    "name": "My DSC App - production",
+    "db-collection": "Members"
+}
