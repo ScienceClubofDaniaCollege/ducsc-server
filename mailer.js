@@ -5,7 +5,7 @@ function sendEmailToNewUser(emailAddress){
         service: 'gmail',
         auth: {
         user: 'daniascienceclub@gmail.com',
-        pass: 'Dsc338899'
+        pass: process.env.DSC_gmail_pass
         }
     });
     

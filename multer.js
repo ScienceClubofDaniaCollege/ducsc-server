@@ -47,6 +47,5 @@ const multerConfig = {
             }
         }
       };
-const upload =  multer(multerConfig).single;
-
-exports.multer = multer;
+var upload = multer(multerConfig);
+module.exports = upload;

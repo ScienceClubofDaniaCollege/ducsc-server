@@ -1,6 +1,7 @@
+const config = require('config');
 const mongoose = require('mongoose');
 // connecting to db
-const connectDB = () => {mongoose.connect('mongodb://dsc:DNYs67BakjfdBB3@ds261527.mlab.com:61527/dsc-member_list',{ useNewUrlParser: true }).then(()=> console.log('Conected to DB...'));}
+const connectDB = () => {mongoose.connect(process.env.DSC_db,{ useNewUrlParser: true }).then(()=> console.log('Conected to DB...'));}
 const closeDB = () => {mongoose.connection.close().then(()=> console.log('closed DB connection...'));}
 // creating schema and model
 const memberSchema = new mongoose.Schema({
@@ -17,7 +18,7 @@ const memberSchema = new mongoose.Schema({
     photo: String,
     password: String});
 
-    const Member = mongoose.model('Test5-Members', memberSchema);
+    const Member = mongoose.model(config.get('db-collection'), memberSchema);
 
 const getMembersEmail = async () => {
     allUsersD = await getMembers();
@@ -32,7 +33,10 @@ const getMembers = async () => {
     await connectDB();
     const result = await Member.find();
     await closeDB();
+    console.log(result);
+    
     return result;
+
 };
 // function for creating member
 const createMember = async (memberInfo) => {

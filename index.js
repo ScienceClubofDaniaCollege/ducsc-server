@@ -1,4 +1,8 @@
+// set the following env variables
+    // export process.env.DSC_gmail_pass=<gmail password>
+    // export process.env.DSC_db=<databasse connection string>
 const mailer = require('./mailer');
+const env = require('./env');
 const db = require('./db');
 const upload = require('./multer');
 const express = require('express');
@@ -14,7 +18,7 @@ app.use(express.urlencoded({extended:false}));
 
 app.get('/', (req, res) => res.redirect('https://daniascienceclub.cf'));
 
-app.post('/register',upload.multer(multerConfig).single('photo'), (req, res) => {
+app.post('/register', upload.single('photo'), (req, res) => {
     const createMember2 = async () => {
         req.body.photo = req.file.filename;
         await db.createMember(req.body);
@@ -45,4 +49,5 @@ app.get('/members', function (req, res) {
 
 
 app.listen(port, () => console.log(`Listening on port ${port}! http://localhost:${port}/`));
-console.log(upload);
+env.all()
+// db.getMembers();
