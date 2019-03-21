@@ -1,8 +1,8 @@
 // set the following env variables
     // set process.env.DSC_gmail_pass=<gmail password>
     // set process.env.DSC_db=<databasse connection string>
+const ftp = require('./ftp');
 const mailer = require('./mailer');
-const env = require('./env');
 const db = require('./db');
 const upload = require('./multer');
 const express = require('express');
@@ -24,6 +24,7 @@ app.post('/register', upload.single('photo'), (req, res) => {
         await db.createMember(req.body);
     }
     createMember2();
+    ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);
     res.redirect('https://daniascienceclub.cf/html/login.html')
 });
 
@@ -52,5 +53,5 @@ app.get('/members', function (req, res) {
 
 
 app.listen(port, () => console.log(`Listening on port ${port}! http://localhost:${port}/`));
-env.all()
+// env.all()
 // db.getMembers();

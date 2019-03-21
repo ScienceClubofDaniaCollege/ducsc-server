@@ -38,9 +38,9 @@ html#html.noscroll(lang='en')
                 tr
                     - const fullName = n.fname+' '+n.lname;
                     - const imageServer = 'https://robohash.org';
-                    - const imageServer2 = 'https://dscapi.herokuapp.com/static/';
+                    - const imageServer2 = 'http://akbeautyclltn.byethost32.com/test/';
                     td
-                        img(src=`${imageServer}/${n.photo}`, alt=`${fullName}'s Picture` width="50px")
+                        img(src=`${imageServer2}/${n.photo}`, alt=`${fullName}'s Picture` width="50px")
                     td= n.memberId
                     td= fullName
                     td=n.section

@@ -1,4 +1,4 @@
 {
-    "name": "My DSC App - production",
-    "db-collection": "Members"
+    "name": "My DSC App - Development",
+    "db-collection": "Members-Development"
 }

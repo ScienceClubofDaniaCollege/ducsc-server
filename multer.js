@@ -5,7 +5,7 @@ const multerConfig = {
     storage: multer.diskStorage({
      //Setup where the user's file will go
      destination: function(req, file, next){
-       next(null, './public');
+       next(null, './public/members-image');
        },   
         
         //Then give the file a unique name
