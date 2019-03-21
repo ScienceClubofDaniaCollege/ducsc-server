@@ -1,0 +1,70 @@
+doctype html
+html
+  head
+    meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=0')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+    style.
+      .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      max-width: 300px;
+      margin: auto;
+      margin-bottom: 50px;
+      text-align: center;
+      font-family: arial;
+      }
+      body {background-color:honeydew;}
+      .title {
+      color: grey;
+      font-size: 18px;
+      }
+      button {
+      border: none;
+      outline: 0;
+      display: inline-block;
+      padding: 8px;
+      color: white;
+      background-color: #000;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+      }
+      a {
+      text-decoration: none;
+      font-size: 22px;
+      color: black;
+      }
+      button:hover, a:hover {
+      opacity: 0.7;
+      }
+    link(rel='stylesheet', href='static/css/form.css')
+  body
+    //- - const sud = {"_id":"s5c91b6e25c1e530274c32215","fname":"Nurul","lname":"Huda","email":"nurulhuda859g@gmail.com","password":"111111","roll":202563,"shift":"Day","batch":"HSC-20","section":"S4","phone":"01948297466","message":"626","memberId":"20-D-S4-2563","photo":"20-D-S4-2563-1553053409915.png","__v":0}
+    //- - const userData = [sud, sud]
+    
+    form(action="/members", method="get")
+      select(name="type")
+        option(value="card" name="card") Card
+        option(value="table" name="table") Table
+      input(type="submit", value="Get Members" width="200px")
+    h2(style='text-align:center') User Profile Card
+    each n, i in userData
+        .card
+            - const fullName = n.fname+' '+n.lname;
+            - const imageServer = 'https://robohash.org';
+            - const imageServer2 = 'https://dscapi.herokuapp.com/static/';
+            img(src=`${imageServer}/${n.photo}`, alt=`${fullName}'s Picture` style='width:100%')
+            h1=fullName
+            p.title Member of DSC
+            p Dania University College
+            div(style='margin: 24px 0;')
+                a(href='#')
+                i.fa.fa-dribbble
+                a(href='#')
+                i.fa.fa-twitter
+                a(href='#')
+                i.fa.fa-linkedin
+                a(href='#')
+                i.fa.fa-facebook
+            p
+                button Contact

@@ -1,0 +1,91 @@
+doctype html
+html#html.noscroll(lang='en')
+  head
+    // Required meta tags
+    meta(name='google-site-verification', content='OkqwxN1dUa2GWLaiZYZN0MKeIFN_imMxHfH0yJqDa1c')
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=0')
+    // Bootstrap CSS
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css', integrity='sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS', crossorigin='anonymous')
+    // AOS CSS
+    link(href='https://unpkg.com/aos@2.3.1/dist/aos.css', rel='stylesheet')
+    // AOS js
+    script(src='https://unpkg.com/aos@2.3.1/dist/aos.js')
+    script(src='../js/loader.js')
+    // Own CSS
+    link(rel='stylesheet', href='../css/main.css')
+    link(rel='stylesheet', href='../css/form.css')
+    link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.7.2/css/all.css', integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr', crossorigin='anonymous')
+    // ICON
+    link(rel='shortcut icon', href='../img/icon.png', type='image/x-icon')
+    title#title Dania Science Club
+  body#body.math.noscroll
+    // Preloader
+    .loader
+      img(src='../img/preloader.svg', alt='Loading...')
+    // Notice
+    // start of navbar
+    nav#navbar.navbar.navbar-dark.bg-primary.navbar-expand-lg.sticky-top.box-shadow
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNavDropdown', aria-controls='navbarNavDropdown', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarNavDropdown.collapse.navbar-collapse
+        ul.navbar-nav
+          li.nav-item.active
+            a.nav-link(href='../index.html') Home
+          li.nav-item.dropdown
+            a#navbarDropdown.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+              | Subjects
+            .dropdown-menu(aria-labelledby='navbarDropdown')
+              a.dropdown-item(href='math.html') Math
+              a.dropdown-item(href='physics.html') Physics
+              a.dropdown-item(href='chemistry.html') Chemistry
+              a.dropdown-item(href='biology.html') Biology
+              a.dropdown-item(href='ict.html') ICT
+          li.nav-item
+            a.nav-link(href='gallery.html') Gallery
+          li.nav-item
+            a.nav-link(href='events.html') Events
+          li.nav-item
+            a.nav-link(href='about-us.html') About
+          li.nav-item.dropdown
+            a#navbarDropdown.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+              | Member
+            .dropdown-menu(aria-labelledby='navbarDropdown')
+              a.dropdown-item(href='form.html') Register
+    // end of navbar
+    // Headerbox
+    .form
+      form.card(action='https://dscapi.herokuapp.com/login', method='POST')
+        img(src='../img/logo.svg', height='100px;')
+        h Login
+        hr
+        |             Email:
+        input(name='email', type='email', placeholder='example@gmail.com', required='', focus='')
+        |             Password:
+        .row
+          .col-12
+            input#password(name='password', type='password', placeholder='Password', required='')
+          .eye
+            i#eye.fas.fa-eye(onclick='toglePassVisibility()')
+            i#eyex.fas.fa-eye-slash(onclick='toglePassVisibility()')
+        input(type='submit', value='Login')
+        br
+        p
+          | Haven't registered?
+          a(href='form.html')  Register now
+      hr
+      // Headerbox
+      // page contents
+      i.fa.fa-odnoklassniki-square(aria-hidden='true')
+      // jQuery first, then Popper.js, then Bootstrap JS
+      script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')
+      script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js', integrity='sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut', crossorigin='anonymous')
+      script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js', integrity='sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k', crossorigin='anonymous')
+      // Main JavaScript
+      script(src='../js/main.js')
+      script(src='../js/form.js')
+      // AOS js
+      script.
+        AOS.init({
+        duration: 1200,
+        });

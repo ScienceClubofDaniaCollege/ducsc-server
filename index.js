@@ -9,7 +9,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 app.set('view engine', 'pug')
-app.set('views', './html')
+app.set('views', './pug')
 app.use('/static', express.static('public'));
 app.use(express.urlencoded({extended:false}));
 
@@ -40,10 +40,13 @@ app.post('/login', (req, res) => {
 
 app.get('/members', function (req, res) {
     async function sendMembers(){
-        userData = await db.getMembers();
-        console.log(userData);
-    res.render('index', userData)
-        }
+        userData = await db.getMembers()
+            const displayMembers =(type) => {
+        res.render(`members-${type}`, userData);
+        };
+        displayMembers(req.query.type);
+    }
+
         sendMembers()
   })
 
