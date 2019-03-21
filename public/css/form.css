@@ -1,7 +1,3 @@
-body{
-    background-color: #7452ce;
-    font-size: 18px;
-}
 form.card{
     margin-top: 100px;
     margin-left: 50%;
@@ -59,17 +55,4 @@ input[type=button]:hover {
 }
 textarea{
     height: 100px;
-}
-@media screen and (max-width: 700px) {
-    body{
-    background-color:ghostwhite;
-}
-    form.card{
-    border: none;
-    width: 100%;
-    margin-top: 0px;
-    height: auto;
-    box-shadow: none;
-    background-color: transparent;
-}
 }
