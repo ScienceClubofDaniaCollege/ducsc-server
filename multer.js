@@ -49,4 +49,4 @@ const multerConfig = {
       };
 const upload =  multer(multerConfig).single;
 
-exports = upload;
+exports.multer = multer;

@@ -2,13 +2,13 @@
   "name": "back_end-dania_science_club-s-web",
   "version": "1.9.0",
   "description": "This is the server side of Dania_Science_Club-s-Web.",
-  "main": "index2.js",
+  "main": "index.js",
   "engines": {
     "node": "10.15.0"
   },
   "scripts": {
-    "test": "node index2.js",
-    "start": "node index2.js"
+    "test": "node index.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",

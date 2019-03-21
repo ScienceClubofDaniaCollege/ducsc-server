@@ -1,6 +1,6 @@
-const mailer = require('./modules/mailer');
-const db = require('./mudules/db');
-const upload = require('./modules/db');
+const mailer = require('./mailer');
+const db = require('./db');
+const upload = require('./multer');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended:false}));
 
 app.get('/', (req, res) => res.redirect('https://daniascienceclub.cf'));
 
-app.post('/register', upload('photo'), (req, res) => {
+app.post('/register',upload.multer(multerConfig).single('photo'), (req, res) => {
     const createMember2 = async () => {
         req.body.photo = req.file.filename;
         await db.createMember(req.body);
@@ -45,4 +45,4 @@ app.get('/members', function (req, res) {
 
 
 app.listen(port, () => console.log(`Listening on port ${port}! http://localhost:${port}/`));
-// console.log(db);
+console.log(upload);
