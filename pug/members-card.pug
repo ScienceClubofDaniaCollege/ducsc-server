@@ -38,32 +38,31 @@ html
       }
     link(rel='stylesheet', href='static/css/form.css')
   body
-    //- - const sud = {"_id":"s5c91b6e25c1e530274c32215","fname":"Nurul","lname":"Huda","email":"nurulhuda859g@gmail.com","password":"111111","roll":202563,"shift":"Day","batch":"HSC-20","section":"S4","phone":"01948297466","message":"626","memberId":"20-D-S4-2563","photo":"20-D-S4-2563-1553053409915.png","__v":0}
-    //- - const userData = [sud, sud]
+    - const sud = {"_id":"s5c91b6e25c1e530274c32215","fname":"Nurul","lname":"Huda","email":"nurulhuda859g@gmail.com","password":"111111","roll":202563,"shift":"Day","batch":"HSC-20","section":"S4","phone":"01948297466","message":"626","memberId":"20-D-S4-2563","photo":"20-D-S4-2563-1553053409915.png","__v":0}
+    - const userData = [sud, sud]
+
     
     form(action="/members", method="get")
       select(name="type")
         option(value="card" name="card") Card
         option(value="table" name="table") Table
-      input(type="submit", value="Get Members" width="200px")
+      input(type="submit", value="Get Members")
     h2(style='text-align:center') User Profile Card
     each n, i in userData
         .card
-            - const fullName = n.fname+' '+n.lname;
             - const imageServer = 'https://robohash.org';
             - const imageServer2 = 'http://akbeautyclltn.byethost32.com/test/';
+            - const fullName = n.fname+' '+n.lname;
+            - const memberType = 'Member'
             img(src=`${imageServer2}/${n.photo}`, alt=`${fullName}'s Picture` style='width:300px')
             h1=fullName
-            p.title Member of DSC
+            p.title=`${memberType} of DSC`
             p Dania University College
+            p=`Batch: ${n.batch}`
+            p=`Roll: ${n.roll}`
             div(style='margin: 24px 0;')
-                a(href='#')
-                i.fa.fa-dribbble
-                a(href='#')
-                i.fa.fa-twitter
-                a(href='#')
-                i.fa.fa-linkedin
-                a(href='#')
-                i.fa.fa-facebook
-            p
-                button Contact
+                a(href=`https://fb.me/${n.fb}`)
+                h1
+                  i.fa.fa-facebook-square
+                a(href=`tel:+88${n.phone}`)
+                  button Call
