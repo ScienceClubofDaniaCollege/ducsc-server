@@ -1,68 +1,50 @@
 doctype html
-html
+html#html.noscroll(lang='en')
   head
     meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=0')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
-    style.
-      .card {
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-      max-width: 300px;
-      margin: auto;
-      margin-bottom: 50px;
-      text-align: center;
-      font-family: arial;
-      }
-      .title {
-      color: grey;
-      font-size: 18px;
-      }
-      button {
-      border: none;
-      outline: 0;
-      display: inline-block;
-      padding: 8px;
-      color: white;
-      background-color: #000;
-      text-align: center;
-      cursor: pointer;
-      width: 100%;
-      font-size: 18px;
-      }
-      a {
-      text-decoration: none;
-      font-size: 22px;
-      color: black;
-      }
-      button:hover, a:hover {
-      opacity: 0.7;
-      }
-    link(rel='stylesheet', href='static/css/form.css')
-  body
-    //- - const sud = {"_id":"s5c91b6e25c1e530274c32215","fname":"Nurul","lname":"Huda","email":"nurulhuda859g@gmail.com","password":"111111","roll":202563,"shift":"Day","batch":"HSC-20","section":"S4","phone":"01948297466","message":"626","memberId":"20-D-S4-2563","photo":"20-D-S4-2563-1553053409915.png","__v":0}
-    //- - const userData = [sud, sud]
-
-    
-    form(action="/members", method="get")
-      select(name="type")
-        option(value="card" name="card") Card
-        option(value="table" name="table") Table
-      input(type="submit", value="Get Members")
-    h2(style='text-align:center') User Profile Card
-    each n, i in userData
-        .card
-            - const imageServer = 'https://robohash.org';
-            - const imageServer2 = 'http://akbeautyclltn.byethost32.com/test/';
-            - const fullName = n.fname+' '+n.lname;
-            - const memberType = 'Member'
-            img(src=`${imageServer2}/${n.photo}`, alt=`${fullName}'s Picture` style='width:300px')
-            h1=fullName
-            p.title=`${memberType} of DSC`
-            p Dania University College
-            p=`Batch: ${n.batch}`
-            p=`Roll: ${n.roll}`
-            div(style='margin: 24px 0;')
-                a(href=`https://fb.me/${n.fb}`)
-                h1
-                  i.fa.fa-facebook-square
-                a(href=`tel:+88${n.phone}`)
-                  button=`Call: #${n.phone}`
+    // Required meta tags
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=0')
+    // Bootstrap CSS
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css', integrity='sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS', crossorigin='anonymous')
+    script(src='https://daniascienceclub.cf/js/loader.js')
+    // Own CSS
+    link(rel='stylesheet', href='https://daniascienceclub.cf/css/form.css')
+    link(rel='stylesheet', href='https://daniascienceclub.cf/css/main.css')
+    // ICON
+    link(rel='shortcut icon', href='https://daniascienceclub.cf/img/icon.png', type='image/x-icon')
+    title#title Dania Science Club
+  body#body.noscroll(style="background-color: white;")
+    // Preloader
+    .loader
+      img(src='https://daniascienceclub.cf/img/preloader.svg', alt='Loading...')
+    // Notice
+    .container(class='text-center')
+      br
+      br
+      h1 Here is the list of all registered members
+      form(action="https://dscapi.herokuapp.com/members", method="get")
+        button(type="submit", value="card" name="type" style="") Members List - Card 
+        button(type="submit", value="table" name="type" style="") Members List - Table
+      - const sud = {"_id":"s5c91b6e25c1e530274c32215","fname":"Nurul","lname":"Huda","email":"nurulhuda859g@gmail.com","password":"111111","roll":202563,"shift":"Day","batch":"HSC-20","section":"S4","phone":"01948297466","message":"626","memberId":"20-D-S4-2563","photo":"np.png","__v":0}
+      - const userDataDemo = [sud, sud, sud, sud, sud, sud, sud]
+      .row.align-items-center
+        each n, i in userData || userDataDemo
+          - const imageServer = 'https://robohash.org';
+          - const imageServer2 = 'http://akbeautyclltn.byethost32.com/test';
+          - const fullName = n.fname+' '+n.lname;
+          - const memberType = 'Member'
+          .card.col-12.col-sm-6.col-md-4.col-lg-4.col-xl-3(style='width:300px')
+            img.card-img-top(src=`${imageServer2}/${n.photo}`, alt=`${fullName}'s Picture` style='width:100%')
+            .card-body
+              h2.card-title=fullName
+              h6=`${memberType} of DSC`
+              p Dania University College
+              p=`Batch: ${n.batch}`
+              p=`Roll: ${n.roll}`
+              div(style='margin: 24px 0;')
+              h1
+                a.fa.fa-facebook-square(href=`https://fb.me/${n.fb}`)
+              a.btn.btn-primary(href=`tel:+88${n.phone}`)=`Call: ${n.phone}`
+            br
