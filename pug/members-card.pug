@@ -23,6 +23,7 @@ html#html.noscroll(lang='en')
     .container(class='text-center')
       br
       br
+      br
       h1 Here is the list of all registered members
       form(action="https://dscapi.herokuapp.com/members", method="get")
         button(type="submit", value="card" name="type" style="") Members List - Card 
@@ -35,16 +36,17 @@ html#html.noscroll(lang='en')
           - const imageServer2 = 'http://akbeautyclltn.byethost32.com/test';
           - const fullName = n.fname+' '+n.lname;
           - const memberType = 'Member'
-          .card.col-12.col-sm-6.col-md-4.col-lg-4.col-xl-3(style='width:300px')
-            img.card-img-top(src=`${imageServer2}/${n.photo}`, alt=`${fullName}'s Picture` style='width:100%')
-            .card-body
-              h2.card-title=fullName
-              h6=`${memberType} of DSC`
-              p Dania University College
-              p=`Batch: ${n.batch}`
-              p=`Roll: ${n.roll}`
-              div(style='margin: 24px 0;')
-              h1
-                a.fa.fa-facebook-square(href=`https://fb.me/${n.fb}`)
-              a.btn.btn-primary(href=`tel:+88${n.phone}`)=`Call: ${n.phone}`
+          .col-12.col-sm-6.col-md-4.col-lg-4.col-xl-3(style='width:300px;')
+            .card
+              img.card-img-top(src=`${imageServer2}/${n.photo}`, alt=`${fullName}'s Picture` style='width:100%')
+              .card-body
+                h2.card-title=fullName
+                h6=`${memberType} of DSC`
+                p Dania University College
+                p=`Batch: ${n.batch}`
+                p=`Roll: ${n.roll}`
+                div(style='margin: 24px 0;')
+                h1
+                  a.fa.fa-facebook-square(href=`https://fb.me/${n.fb}`)
+                a.btn.btn-dark(href=`tel:+88${n.phone}`)=`Call: ${n.phone}`
             br

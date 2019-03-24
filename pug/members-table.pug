@@ -13,6 +13,23 @@ html#html.noscroll(lang='en')
     // ICON
     link(rel='shortcut icon', href='https://daniascienceclub.cf/img/icon.png', type='image/x-icon')
     title#title Dania Science Club
+    style.
+      .table td, .table th {
+      vertical-align: middle;        }
+      .pp {
+        border-radius: 5px;
+      }
+      .picture {
+        width:80px;
+      }
+      #showDesButton {
+      display: none;
+      }
+      @media screen and (max-width: 450px) {
+        .hideColumn {display:none;}
+        #showDesButton {display: block;}
+        }
+      
   body#body.noscroll(style="background-color: white;")
     // Preloader
     .loader
@@ -21,33 +38,53 @@ html#html.noscroll(lang='en')
     .container(class='text-center')
       br
       br
+      br
       h1 Here is the list of all registered members
       form(action="https://dscapi.herokuapp.com/members", method="get")
         button(type="submit", value="card" name="type" style="") Members List - Card 
         button(type="submit", value="table" name="type" style="") Members List - Table
 
-        - const sud = {"_id":"s5c91b6e25c1e530274c32215","fname":"Nurul","lname":"Huda","email":"nurulhuda859g@gmail.com","password":"111111","roll":202563,"shift":"Day","batch":"HSC-20","section":"S4","phone":"01948297466","message":"626","memberId":"20-D-S4-2563","photo":"np.png","__v":0}
-        - const userDataDemo = [sud, sud]
-        table(class='table table-striped table-bordered')
-            tr
-                th Picture
-                th Name
-                th Member ID
-                th Section
-                th Roll
-            each n, i in userData || userDataDemo
-                tr
-                    - const fullName = n.fname+' '+n.lname;
-                    - const imageServer = 'https://robohash.org';
-                    - const imageServer2 = 'http://akbeautyclltn.byethost32.com/test';
-                    td
-                        img(src=`${imageServer2}/${n.photo}`, alt=`${fullName}'s Picture` width="50px")
-                    td= fullName
-                    td= n.memberId
-                    td=n.section
-                    td=n.roll
+      - const sud = {"_id":"s5c91b6e25c1e530274c32215","fname":"Nurul","lname":"Huda","email":"nurulhuda859g@gmail.com","password":"111111","roll":202563,"shift":"Day","batch":"HSC-20","section":"S4","phone":"01948297466","message":"626","memberId":"20-D-S4-2563","photo":"np.png","__v":0}
+      - const userDataDemo = [sud, sud, sud, sud, sud, sud]
+      a.btn.btn-primary#showDesButton(href=`#` onclick="togleColumnVisibility()") Show more info
+      table(class='table table-striped table-bordered')
+          tr
+              th.picture Picture
+              th.name Name
+              th.member-id.hideColumn Member ID
+              th.section.hideColumn Section
+              th.roll.hideColumn Roll
+              th.phone.hideColumn Phone
+          each n, i in userData || userDataDemo
+              tr
+                  - const fullName = n.fname+' '+n.lname;
+                  - const imageServer = 'https://robohash.org';
+                  - const imageServer2 = 'http://akbeautyclltn.byethost32.com/test';
+                  td.picture
+                      img.pp(src=`${imageServer2}/${n.photo}`, alt=`${fullName}'s Picture` width="80")
+                  td.name
+                    strong= fullName
+                  td.member-id.hideColumn= n.memberId
+                  td.section.hideColumn=n.section
+                  td.roll.hideColumn=n.roll
+                  td.phone.hideColumn=n.phone
     // page contents
     // jQuery first, then Popper.js, then Bootstrap JS
     script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js', integrity='sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut', crossorigin='anonymous')
     script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js', integrity='sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k', crossorigin='anonymous')
+
+    script.
+      const memberId = document.querySelectorAll('.member-id');
+      const section = document.querySelectorAll('.section');
+      const roll = document.querySelectorAll('.roll');
+      const phone = document.querySelectorAll('.phone');
+      const table = document.querySelector('.table');
+      const togleColumnVisibility = () => {
+      for (var i = 0; i < 3; i++) {
+        roll[i].classList.remove('hideColumn');
+        section[i].classList.remove('hideColumn');
+        phone[i].classList.remove('hideColumn');
+        }
+        table.classList.add('table-responsive')
+      }
