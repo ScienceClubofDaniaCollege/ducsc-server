@@ -41,7 +41,7 @@ html#html.noscroll(lang='en')
               img.card-img-top(src=`${imageServer2}/${n.photo}`, alt=`${fullName}'s Picture` style='width:100%')
               .card-body
                 h2.card-title=fullName
-                h6=`${memberType} of DSC`
+                h6=`${n.memberType || memberType} of DSC`
                 p Dania University College
                 p=`Batch: ${n.batch}`
                 p=`Roll: ${n.roll}`

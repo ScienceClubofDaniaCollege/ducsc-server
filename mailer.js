@@ -1,15 +1,15 @@
-var nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 
-function sendEmailToNewUser(emailAddress){
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-        user: 'daniascienceclub@gmail.com',
-        pass: process.env.DSC_gmail_pass
-        }
-    });
-    
-    var mailOptions = {
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+    user: 'daniascienceclub@gmail.com',
+    pass: process.env.DSC_gmail_pass
+    }
+});
+function sendEmailToNewMembers(emailAddress){
+
+    const mailOptions = {
         from: 'daniascienceclub@gmail.com',
         to: emailAddress,
         subject: 'Thank you for registering as a member of DSC',
@@ -23,6 +23,21 @@ function sendEmailToNewUser(emailAddress){
         console.log('Email sent: ' + info.response);
         }
     });
-
+}
+function sendEmailToAllMembers(subject, html){
+    const mailOptions = {
+        from: 'daniascienceclub@gmail.com',
+        to: allMembersEmail,
+        subject: subject,
+        html: html
+    };   
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+        console.log('failed to send email to all user', error);
+        } else {
+        console.log('Email sent: ' + info.response);
+        }
+    });
 }
 exports.sendEmailToNewUser = sendEmailToNewUser;
+exports.sendEmailToAllUser = sendEmailAllNewUser;
