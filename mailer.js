@@ -7,7 +7,7 @@ const transporter = nodemailer.createTransport({
     pass: process.env.DSC_gmail_pass
     }
 });
-function sendEmailToNewMembers(emailAddress){
+function sendEmailToNewMember(emailAddress){
 
     const mailOptions = {
         from: 'daniascienceclub@gmail.com',
@@ -39,5 +39,5 @@ function sendEmailToAllMembers(subject, html){
         }
     });
 }
-exports.sendEmailToNewUser = sendEmailToNewUser;
-exports.sendEmailToAllUser = sendEmailAllNewUser;
+exports.sendEmailToNewMember = sendEmailToNewMember;
+exports.sendEmailToAllMembers = sendEmailToAllMembers;
