@@ -1,18 +1,14 @@
-// all the packeges and their settings
-const ftp = require('./ftp');
-const mailer = require('./mailer');
-const db = require('./db');
-const upload = require('./multer');
+const upload = require('../multer');
+const db = require('../db');
+
+
 const express = require('express');
-const app = express();
-const port = process.env.PORT || 3000;
-app.set('view engine', 'pug')
-// app.set('views', './views')
-app.use('/static', express.static('public'));
-app.use(express.urlencoded({extended:false}));
+const router = express.Router();
 // all the endpoints
-app.get('/', (req, res) => res.redirect('https://daniascienceclub.cf'));
-app.post('/register', upload.single('photo'), (req, res) => {
+router.get('/', (req, res) => res.send('https://daniascienceclub.cf'));
+
+
+router.post('/register', upload.single('photo'), (req, res) => {
     const createMember2 = async () => {
         req.body.photo = req.file.filename;
         await db.createMember(req.body);
@@ -21,7 +17,7 @@ app.post('/register', upload.single('photo'), (req, res) => {
     ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);
     res.redirect('https://daniascienceclub.cf/html/login.html')
 });
-app.post('/login', (req, res) => {
+router.post('/login', (req, res) => {
     const sendMemberData = async () => {
         userData = await db.getMemberByLoginData(req.body.email, req.body.password);
         console.log(userData);
@@ -31,10 +27,10 @@ app.post('/login', (req, res) => {
     }
     sendMemberData();
 });
-app.get('/login', (req, res) => {
+router.get('/login', (req, res) => {
     res.render('login', null)  
 });
-app.get('/members', function (req, res) {
+router.get('/members', function (req, res) {
     async function sendMembers(){
         userData = await db.getMembers()
         const displayMembers =(type) => {
@@ -44,4 +40,5 @@ app.get('/members', function (req, res) {
     }
         sendMembers()
   });
-app.listen(port, () => console.log(`Listening on port ${port}! http://localhost:${port}/`));
+
+module.exports = router;
