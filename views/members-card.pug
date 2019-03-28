@@ -1,13 +1,12 @@
 doctype html
 html#html.noscroll(lang='en')
   head
-    meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=0')
-    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
     // Required meta tags
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=0')
     // Bootstrap CSS
     link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css', integrity='sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS', crossorigin='anonymous')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
     script(src='https://daniascienceclub.cf/js/loader.js')
     // Own CSS
     link(rel='stylesheet', href='https://daniascienceclub.cf/css/form.css')
@@ -32,13 +31,11 @@ html#html.noscroll(lang='en')
       - const userDataDemo = [sud, sud, sud, sud, sud, sud, sud]
       .row.align-items-center
         each n, i in userData || userDataDemo
-          - const imageServer = 'https://robohash.org';
-          - const imageServer2 = 'http://akbeautyclltn.byethost32.com/test';
           - const fullName = n.fname+' '+n.lname;
           - const memberType = 'Member'
           .col-12.col-sm-6.col-md-4.col-lg-4.col-xl-3(style='width:300px;')
             .card
-              img.card-img-top(src=`${imageServer2}/${n.photo}`, alt=`${fullName}'s Picture` style='width:100%')
+              img.card-img-top(src=`${n.photo}`, alt=`${fullName}'s Picture` style='width:100%')
               .card-body
                 h2.card-title=fullName
                 h6=`${n.memberType || memberType} of DSC`

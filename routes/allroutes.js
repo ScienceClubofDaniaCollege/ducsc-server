@@ -1,20 +1,37 @@
 const upload = require('../multer');
 const db = require('../db');
+const ftp = require('../ftp');
 
 
 const express = require('express');
 const router = express.Router();
+router.use(express.urlencoded());
 // all the endpoints
 router.get('/', (req, res) => res.send('https://daniascienceclub.cf'));
+router.get('/emails', async (req, res) => {
+    const result = await db.getMembersEmail();
+    res.send(result);
+});
 
+const imgur = require('../dev/imgur');
+
+router.get('/test', async (req, res) => {
+const link = await imgur.uploadImg('asik.jpg');
+console.log('worked',link);
+
+
+});
 
 router.post('/register', upload.single('photo'), (req, res) => {
     const createMember2 = async () => {
-        req.body.photo = req.file.filename;
+        const link = await imgur.uploadImg(`public/members-image/${req.file.filename}`);
+        req.body.photo = link;
         await db.createMember(req.body);
+        console.log(link);
+        
     }
     createMember2();
-    ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);
+    // ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);
     res.redirect('https://daniascienceclub.cf/html/login.html')
 });
 router.post('/login', (req, res) => {

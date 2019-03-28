@@ -33,13 +33,16 @@ const getMembersEmail = async () => {
     allUsersD = await getMembers();
     let result = allUsersD.map(a => a.email);
     let fresult = result.toString();
+    console.log(fresult);
+    
+    
     return fresult;
 }
 const getMembers = async () => {
     await connectDB();
     const result = await Member.find();
     await closeDB();
-    console.log(result);
+    // console.log(result);
     return result;
 };
 // function for creating member
@@ -62,3 +65,4 @@ const getMemberByLoginData = async (memberEmail, memberPassword) => {
 exports.getMembers = getMembers;
 exports.createMember = createMember;
 exports.getMemberByLoginData = getMemberByLoginData;
+exports.getMembersEmail = getMembersEmail;
