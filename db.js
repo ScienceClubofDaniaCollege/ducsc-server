@@ -12,19 +12,20 @@ const closeDB = () => {
 }
 // creating schema and model
 const memberSchema = new mongoose.Schema({
-    fname: String,
-    lname: String,
-    email: String,
-    phone: String,
-    roll: Number,
+    fname: {type: String, required: true, lowercase: true},
+    lname: {type: String, required: true, lowercase: true},
+    email: {type: String, unique: true, required: true, lowercase: true},
+    phone: {type: String, unique: true, required: true},
+    roll: {type: Number, unique: true, required: true},
     bio: String,
-    memberId: String,
-    batch: String,
-    shift: String,
-    section: String,
-    photo: String,
-    socials: Object,
-    password: String
+    memberId: {type: String, unique: true, required: true},
+    memberType: {type: String, default: 'Member'},
+    batch: {type: String, required: true},
+    shift: {type: String, required: true},
+    section: {type: String, required: true},
+    photo: {type: Array, required: true},
+    socials: {type: {fb: String, tw: String, ig: String}, default: {fb: 'N/A', tw: 'N/A', ig: 'N/A'}},
+    password: {type: String, required: true}
 });
 // setting model
 const Member = mongoose.model(config.get('db-collection'), memberSchema);
@@ -34,8 +35,6 @@ const getMembersEmail = async () => {
     let result = allUsersD.map(a => a.email);
     let fresult = result.toString();
     console.log(fresult);
-    
-    
     return fresult;
 }
 const getMembers = async () => {

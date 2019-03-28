@@ -1,0 +1,14 @@
+doctype html
+html
+    head
+    body
+        form(action="/send-email", method="post")
+            |             Subject: 
+            input(type="text", name="subject")
+            br
+            br
+            |             HTML:
+            br 
+            textarea(name="html", cols="30", rows="10")
+            br
+            input(type="submit", value="Send")

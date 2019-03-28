@@ -24,10 +24,10 @@ function sendEmailToNewMember(emailAddress){
         }
     });
 }
-function sendEmailToAllMembers(subject, html){
+function sendEmailToAllMembers(subject, html, emails){
     const mailOptions = {
         from: 'daniascienceclub@gmail.com',
-        to: allMembersEmail,
+        bcc: emails,
         subject: subject,
         html: html
     };   

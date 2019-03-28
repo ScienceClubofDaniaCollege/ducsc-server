@@ -1,11 +1,14 @@
+const imgur = require('../imgur');
 const upload = require('../multer');
 const db = require('../db');
 const ftp = require('../ftp');
-
+const mailer = require('../mailer');
 
 const express = require('express');
 const router = express.Router();
-router.use(express.urlencoded());
+
+
+router.use(express.urlencoded({extended: true}));
 // all the endpoints
 router.get('/', (req, res) => res.send('https://daniascienceclub.cf'));
 router.get('/emails', async (req, res) => {
@@ -13,25 +16,16 @@ router.get('/emails', async (req, res) => {
     res.send(result);
 });
 
-const imgur = require('../dev/imgur');
-
-router.get('/test', async (req, res) => {
-const link = await imgur.uploadImg('asik.jpg');
-console.log('worked',link);
-
-
-});
-
 router.post('/register', upload.single('photo'), (req, res) => {
     const createMember2 = async () => {
         const link = await imgur.uploadImg(`public/members-image/${req.file.filename}`);
-        req.body.photo = link;
+        req.body.photo = [link, req.file.filename];
         await db.createMember(req.body);
-        console.log(link);
-        
+        mailer.sendEmailToNewMember(req.body.email);
+        console.log(link);   
     }
     createMember2();
-    // ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);
+    ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);
     res.redirect('https://daniascienceclub.cf/html/login.html')
 });
 router.post('/login', (req, res) => {
@@ -51,11 +45,21 @@ router.get('/members', function (req, res) {
     async function sendMembers(){
         userData = await db.getMembers()
         const displayMembers =(type) => {
+            // console.log(userData);
         res.render(`members-${type}`, userData);
         };
         displayMembers(req.query.type);
     }
         sendMembers()
+  });
+
+  router.post('/send-email', async (req, res) => {
+    const allMembersEmail = await db.getMembersEmail();
+    mailer.sendEmailToAllMembers(req.body.subject, req.body.html, allMembersEmail);
+    res.status(200).send('email sent')
+  });
+  router.get('/send-email', (req, res) => {
+    res.render('send-mail', null)
   });
 
 module.exports = router;

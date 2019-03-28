@@ -64,7 +64,7 @@ html#html.noscroll(lang='en')
                   td.picture
                       img.pp(src=`${n.photo}`, alt=`${fullName}'s Picture` style="height: 80px;object-fit: cover;width: 80px;")
                   td.name
-                    strong= fullName
+                    strong(style="text-transform: capitalize")= fullName
                   td.member-id.hideColumn= n.memberId
                   td.section.hideColumn=n.section
                   td.roll.hideColumn=n.roll
