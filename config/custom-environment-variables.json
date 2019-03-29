@@ -1,18 +1,18 @@
 {
     "database": {
-        "con-string": "dsc_db-cs"
+        "con-string": "dsc_db_cs"
     },
     "ftp": {
-        "host": "dsc_ftp-host",
-        "user": "dsc_ftp-user",
-        "pass": "dsc_ftp-pass",
-        "server-address": "dsc_ftp-server-address"
+        "host": "dsc_ftp_host",
+        "user": "dsc_ftp_user",
+        "pass": "dsc_ftp_pass",
+        "server-address": "dsc_ftp_server_address"
     },
     "admin": {
-        "password": "dsc_admin-pass"
+        "password": "dsc_admin_pass"
     },
     "gmail": {
-        "address": "dsc_gmail-address",
-        "password": "dsc_gmail-password"
+        "address": "dsc_gmail_address",
+        "password": "dsc_gmail_password"
     }
 }
