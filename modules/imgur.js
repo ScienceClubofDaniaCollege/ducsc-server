@@ -13,12 +13,10 @@ const uploadFromUrl = () => {
     });
 };
 
-
-
 const uploadImg = async (imgPath) => {
     const result = await imgur.uploadFile(imgPath).then((json) => {return json.data.link;}).catch((err) => {console.error(err.message);});
     return result;
 }
-// uploadImg('asik.jpg');
+
 exports.uploadImg = uploadImg;
 exports.uploadFromUrl = uploadFromUrl;

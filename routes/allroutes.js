@@ -2,7 +2,7 @@ const config = require('config');
 const imgur = require('../modules/imgur');
 const upload = require('../modules/multer');
 const db = require('../modules/db');
-const ftp = require('../modules/ftp');
+// const ftp = require('../modules/ftp');
 const mailer = require('../modules/mailer');
 const express = require('express');
 const router = express.Router();
@@ -23,7 +23,7 @@ router.post('/register', upload.single('photo'), (req, res) => {
         mailer.sendEmailToNewMember(req.body.email); 
     }
     createMember();
-    ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);
+    // ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);
     res.send(`<script type="text/javascript">   
     function Redirect() 
     {  
