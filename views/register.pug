@@ -28,30 +28,30 @@ html#html.noscroll(lang='en')
         .row
           .col-xs-12.col-md-6
             | First name:
-            input(name='fname', type='text', placeholder='First name', required='')
+            input(name='fname', type='text', placeholder='First name', required)
           .col-xs-12.col-md-6
             | Last name:
-            input(name='lname', type='text', placeholder='Last name', required='')
+            input(name='lname', type='text', placeholder='Last name', required)
         |             Email:
-        input(name='email', type='email', placeholder='example@gmail.com', required='')
+        input(name='email', type='email', placeholder='example@gmail.com', required)
         .row
           .col-xs-12.col-md-6
             | Password:
-            input#password(name='password', type='password', placeholder='Password', minlength='6', onkeyup='validate();', required='')
+            input#password(name='password', type='password', placeholder='Password', minlength='6', onkeyup='validate();', required)
           .col-xs-12.col-md-6
             | Confirm Password:
-            input#cpassword(name='cpassword', type='password', placeholder='Password', minlength='6', onkeyup='validate();', required='')
+            input#cpassword(name='cpassword', type='password', placeholder='Password', minlength='6', onkeyup='validate();', required)
         |             Roll number:
-        input#roll(type='number', name='roll', maxlength='6', required='')
+        input#roll(type='number', name='roll', maxlength='6', required)
         .row
           .col-xs-12.col-md-4
             | Shift:
-            select#shift(name='shift', required='')
+            select#shift(name='shift', required)
               option Day
               option Morning
           .col-xs-12.col-md-4
             | Batch:
-            select#batch(name='batch', required='')
+            select#batch(name='batch', required)
               option HSC-20
               option HSC-21
               option HSC-19
@@ -89,7 +89,7 @@ html#html.noscroll(lang='en')
         textarea(name='bio', maxlength='300', required)
         br
         |             Member ID:
-        input#memberId(type='text', name='memberId', disabled)
+        input#memberId(type='text', name='memberId', readonly)
         input#submitButton(type='submit', value='Submit', formtarget='_blank')
         br
         p
