@@ -8,7 +8,4 @@ app.set('view engine', 'pug')
 app.use('/static', express.static('public'));
 app.use('/', allroutes);
 
-console.log(config.get('database.con-string'));
-
-
 app.listen(port, () => console.log(`Listening on port ${port}! http://localhost:${port}/`));
