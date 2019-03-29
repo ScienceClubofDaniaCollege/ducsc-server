@@ -1,0 +1,18 @@
+{
+    "database": {
+        "con-string": "dsc_db-cs"
+    },
+    "ftp": {
+        "host": "dsc_ftp-host",
+        "user": "dsc_ftp-user",
+        "pass": "dsc_ftp-pass",
+        "server-address": "dsc_ftp-server-address"
+    },
+    "admin": {
+        "password": "dsc_admin-pass"
+    },
+    "gmail": {
+        "address": "dsc_gmail-address",
+        "password": "dsc_gmail-password"
+    }
+}

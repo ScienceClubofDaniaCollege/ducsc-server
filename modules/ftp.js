@@ -1,10 +1,7 @@
-var JSFtp = require("jsftp");
-var fs = require("fs");
-var Ftp = new JSFtp({
-    host: 'ftpupload.net',
-    user: 'b32_23532555',
-    pass: 'Ak338899'
-});
+const config = require('config');
+const JSFtp = require("jsftp");
+const fs = require("fs");
+const Ftp = new JSFtp(config.get('ftp'));
 
 const createDir = (dirname) => {
     Ftp.raw("mkd", dirname, (err, data) => {
@@ -29,8 +26,7 @@ const putFile = (local, remote) => {
                     console.error(err);
                     // callback(err);
                 } else {
-                    console.log("File uploaded successfuly");
-                    listFiles();
+                    console.log("Image uploaded to FTP...");
                 }
             });
         }

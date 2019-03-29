@@ -6,8 +6,8 @@ html#html.noscroll(lang='en')
     meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=0')
     // Bootstrap CSS
     link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css', integrity='sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS', crossorigin='anonymous')
-    script(src='../js/loader.js')
     // Own CSS
+    script(src='https://daniascienceclub.cf/js/loader.js')
     link(rel='stylesheet', href='https://daniascienceclub.cf/css/main.css')
     link(rel='stylesheet', href='https://daniascienceclub.cf/css/form.css')
     link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.7.2/css/all.css', integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr', crossorigin='anonymous')
@@ -15,14 +15,14 @@ html#html.noscroll(lang='en')
     link(rel='shortcut icon', href='https://daniascienceclub.cf/img/icon.png', type='image/x-icon')
     title#title Dania Science Club
   body#body.noscroll
-    //- // Preloader
-    //- .loader
-    //-   img(src='https://daniascienceclub.cf/img/preloader.svg', alt='Loading...')
+    // Preloader
+    .loader
+      img(src='https://daniascienceclub.cf/img/preloader.svg', alt='Loading...')
     br
     br
     br
     .form
-      form.card(action='https://dscapi.herokuapp.com/login', method='POST')
+      form.card(action='/login', method='POST')
         img(src='https://daniascienceclub.cf/img/logo.svg', height='100px;')
         h Login
         hr
@@ -39,7 +39,7 @@ html#html.noscroll(lang='en')
         br
         p
           | Haven't registered?
-          a(href='https://daniascienceclub.cf/html/form.html')  Register now
+          a(href='/register')  Register now
       hr
       // jQuery first, then Popper.js, then Bootstrap JS
       script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')

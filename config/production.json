@@ -1,4 +1,20 @@
 {
-    "name": "My DSC App - production",
-    "db-collection": "Members"
+    "name": "Production",
+    "database": {
+        "con-string": "",
+        "cn": "prod-member"
+    },
+    "ftp": {
+        "host": "",
+        "user": "",
+        "pass": "",
+        "server-address": ""
+    },
+    "admin": {
+        "password": ""
+    },
+    "gmail": {
+        "address": "",
+        "password": ""
+    }
 }

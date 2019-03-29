@@ -5,6 +5,7 @@ html#html.noscroll(lang='en')
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=0')
     // Bootstrap CSS
+    link(rel='stylesheet', href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous")
     link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css', integrity='sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS', crossorigin='anonymous')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
     script(src='https://daniascienceclub.cf/js/loader.js')
@@ -13,6 +14,24 @@ html#html.noscroll(lang='en')
     link(rel='stylesheet', href='https://daniascienceclub.cf/css/main.css')
     // ICON
     link(rel='shortcut icon', href='https://daniascienceclub.cf/img/icon.png', type='image/x-icon')
+    style.
+      .name{
+        background-color: snow;
+        text-transform: capitalize;
+        border-radius: 10px;
+        padding: 5px;
+        box-shadow: 0 0 5px 2px rgba(0,123,255,.25);
+        text-transform: capitalize;
+      }
+      .contact-box{
+        margin: 20px;
+        display:flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      .sb{
+        margin: 10px;
+      }
     title#title Dania Science Club
   body#body.noscroll(style="background-color: white;")
     // Preloader
@@ -24,7 +43,7 @@ html#html.noscroll(lang='en')
       br
       br
       h1 Here is the list of all registered members
-      form(action="https://dscapi.herokuapp.com/members", method="get")
+      form(action="members", method="get")
         button(type="submit", value="card" name="type" style="") Members List - Card 
         button(type="submit", value="table" name="type" style="") Members List - Table
       - const sud = {"_id":"s5c91b6e25c1e530274c32215","fname":"Nurul","lname":"Huda","email":"nurulhuda859g@gmail.com","password":"111111","roll":202563,"shift":"Day","batch":"HSC-20","section":"S4","phone":"01948297466","message":"626","memberId":"20-D-S4-2563","photo":"np.png","__v":0}
@@ -34,16 +53,28 @@ html#html.noscroll(lang='en')
           - const fullName = n.fname+' '+n.lname;
           - const memberType = 'Member'
           .col-12.col-sm-6.col-md-4.col-lg-4.col-xl-3(style='width:300px;')
-            .card
-              img.card-img-top(src=`${n.photo}`, alt=`${fullName}'s Picture` style='width:100%')
+            .card(style="height:720px;")
+              if n.photo[0]
+                img.card-img-top(src=`${n.photo[0]}`, alt=`${fullName}'s Picture` style='width:100%; height:270px; object-fit:cover')
+              else
+                img.card-img-top(src="https://i.imgur.com/fIgVWP1.png", alt=`${fullName}'s Picture` style='width:100%; height:270px; object-fit:cover')
               .card-body
-                h2.card-title=fullName
+                h2.card-title.name=fullName
+                  if n.isApproved
+                    i.fas.fa-check-circle(style="color: dodgerblue;")
+                  else
+                    i.fas.fa-times-circle(style="color: red;")
                 h6=`${n.memberType || memberType} of DSC`
                 p Dania University College
                 p=`Batch: ${n.batch}`
                 p=`Roll: ${n.roll}`
-                div(style='margin: 24px 0;')
-                h1
-                  a.fa.fa-facebook-square(href=`https://fb.me/na}`)
+              .contact-box
+                h3
+                  if n.socials && n.socials.fb
+                    a.sb.fa.fa-facebook-square(href=`https://fb.me/${n.socials.fb}` target="_blank")
+                  if n.socials && n.socials.tw
+                    a.sb.fa.fa-twitter(href=`https://fb.me/${n.socials.fb}` target="_blank")
+                  if n.socials && n.socials.ig
+                    a.sb.fa.fa-instagram(href=`https://fb.me/${n.socials.fb}` target="_blank")
                 a.btn.btn-dark(href=`tel:+88${n.phone}`)=`Call: ${n.phone}`
             br

@@ -1,10 +1,12 @@
 const nodemailer = require('nodemailer');
+const config = require('config');
+
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-    user: 'daniascienceclub@gmail.com',
-    pass: process.env.DSC_gmail_pass
+    user: config.get('gmail.address'),
+    pass: config.get('gmail.password')
     }
 });
 function sendEmailToNewMember(emailAddress){
@@ -24,10 +26,10 @@ function sendEmailToNewMember(emailAddress){
         }
     });
 }
-function sendEmailToAllMembers(subject, html){
+function sendEmailToAllMembers(subject, html, emails){
     const mailOptions = {
         from: 'daniascienceclub@gmail.com',
-        to: allMembersEmail,
+        bcc: emails,
         subject: subject,
         html: html
     };   
