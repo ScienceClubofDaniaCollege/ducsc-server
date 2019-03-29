@@ -2,7 +2,10 @@ doctype html
 html
     head
     body
+        h1 Send email to all members
+        hr
         form(action="/send-email", method="post")
+            br
             |             Subject: 
             input(type="text", name="subject")
             br
@@ -11,4 +14,7 @@ html
             br 
             textarea(name="html", cols="30", rows="10")
             br
+            |             Admin Password:
+            br
+            input(type="password", name="password")
             input(type="submit", value="Send")

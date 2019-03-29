@@ -1,0 +1,11 @@
+doctype html
+html
+    head
+    body
+        h1 Approve Members
+        hr
+        form(action="/approve-members", method="post")
+            select(name="memberId")
+                each n, i in userData
+                    option(value=`${n.memberId}`)=`${n.fname}-${n.memberId}`
+            input(type="submit", value="Approve Member")

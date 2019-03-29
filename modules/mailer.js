@@ -1,10 +1,12 @@
 const nodemailer = require('nodemailer');
+const config = require('config');
+
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-    user: 'daniascienceclub@gmail.com',
-    pass: process.env.DSC_gmail_pass
+    user: config.get('gmail.address'),
+    pass: config.get('gmail.password')
     }
 });
 function sendEmailToNewMember(emailAddress){
