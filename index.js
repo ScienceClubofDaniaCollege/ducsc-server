@@ -1,4 +1,5 @@
 // all the packeges and their settings
+const config = require('config');
 const express = require('express');
 const app = express();
 const allroutes = require('./routes/allroutes')
@@ -6,5 +7,8 @@ const port = process.env.PORT || 3000;
 app.set('view engine', 'pug')
 app.use('/static', express.static('public'));
 app.use('/', allroutes);
+
+console.log(config.get('database.con-string'));
+
 
 app.listen(port, () => console.log(`Listening on port ${port}! http://localhost:${port}/`));
