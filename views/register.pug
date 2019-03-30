@@ -5,6 +5,7 @@ html#html.noscroll(lang='en')
     // Preloader
     .loader
       img(src='https://daniascienceclub.cf/img/preloader.svg', alt='Loading...')
+      p(style="position: fixed;z-index: 99999;top: 0;left: 0;width: 100%;height: 122%;display: flex;justify-content: center;align-items: center;") Collecting Your Data...
     br
     br
     br
@@ -78,7 +79,7 @@ html#html.noscroll(lang='en')
         br
         |             Member ID:
         input#memberId(type='text', name='memberId', readonly)
-        input#submitButton(type='submit', value='Submit', formtarget='_blank')
+        input#submitButton(type='submit', value='Submit')
         br
         p
           | Already registered?
@@ -93,3 +94,10 @@ html#html.noscroll(lang='en')
       script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js', integrity='sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k', crossorigin='anonymous')
       // Main JavaScript
       script(src='https://daniascienceclub.cf/js/form.js')
+      script.
+        const btn = document.querySelector('#submitButton');
+        function showLoader(){
+          const loader = document.querySelector('.loader');
+          loader.classList.remove('hidden');
+          };
+        btn.addEventListener('click', showLoader)
