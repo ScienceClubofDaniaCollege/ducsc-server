@@ -1,20 +1,18 @@
 doctype html
 html
-    head
+    include includes/head.pug
     body
-        h1 Send email to all members
-        hr
-        form(action="/send-email", method="post")
-            br
-            |             Subject: 
-            input(type="text", name="subject")
-            br
-            br
-            |             HTML:
-            br 
-            textarea(name="html", cols="30", rows="10")
-            br
-            |             Admin Password:
-            br
-            input(type="password", name="password")
-            input(type="submit", value="Send")
+        .container
+            form.card(action="/admin/send-email", method="post")
+                h1.text-center Send Email to All Members
+                |             Subject: 
+                input(type="text", name="subject")
+                br
+                |             HTML:
+                br 
+                textarea(name="html", cols="30", rows="10")
+                br
+                |             Admin Password:
+                br
+                input(type="password", name="password")
+                input(type="submit", value="Send")

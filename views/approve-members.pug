@@ -1,11 +1,15 @@
 doctype html
-html
-    head
-    body
-        h1 Approve Members
-        hr
-        form(action="/approve-members", method="post")
-            select(name="memberId")
-                each n, i in userData
-                    option(value=`${n.memberId}`)=`${n.fname}-${n.memberId}`
-            input(type="submit", value="Approve Member")
+html#html.noscroll(lang='en')
+    include includes/head.pug
+    body#body.noscroll(style="background-color: white;")
+        .container
+            br
+            h1.card.text-center(style="padding: 10px;") Approve Members
+            if userData.length == 0
+                h3.text-center There is no members to be approved
+            else
+                form(action="/admin/approve-members", method="post")
+                    select(name="memberId")
+                        each n, i in userData
+                            option(value=`${n.memberId}`)=`${n.fname}-${n.memberId}`
+                    input(type="submit", value="Approve Member")

@@ -1,38 +1,6 @@
 doctype html
 html#html.noscroll(lang='en')
-  head
-    // Required meta tags
-    meta(charset='utf-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=0')
-    // Bootstrap CSS
-    link(rel='stylesheet', href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous")
-    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css', integrity='sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS', crossorigin='anonymous')
-    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
-    script(src='https://daniascienceclub.cf/js/loader.js')
-    // Own CSS
-    link(rel='stylesheet', href='https://daniascienceclub.cf/css/form.css')
-    link(rel='stylesheet', href='https://daniascienceclub.cf/css/main.css')
-    // ICON
-    link(rel='shortcut icon', href='https://daniascienceclub.cf/img/icon.png', type='image/x-icon')
-    style.
-      .name{
-        background-color: snow;
-        text-transform: capitalize;
-        border-radius: 10px;
-        padding: 5px;
-        box-shadow: 0 0 5px 2px rgba(0,123,255,.25);
-        text-transform: capitalize;
-      }
-      .contact-box{
-        margin: 20px;
-        display:flex;
-        flex-direction: column;
-        justify-content: flex-end;
-      }
-      .sb{
-        margin: 10px;
-      }
-    title#title Dania Science Club
+  include includes/head.pug
   body#body.noscroll(style="background-color: white;")
     // Preloader
     .loader
