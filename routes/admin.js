@@ -1,3 +1,4 @@
+const config = require('config')
 const db = require('../modules/db');
 const express = require('express');
 const router = express.Router();
