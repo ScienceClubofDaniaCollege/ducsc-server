@@ -12,8 +12,7 @@ html#html.noscroll(lang='en')
       br
       h1 Here is the list of all registered members
       form(action="members", method="get")
-        button(class="btny" type="submit", value="card" name="type" style="" onclick="showLoader()") Members List - Card 
-        button(class="btny" type="submit", value="table" name="type" style="" onclick="showLoader()") Members List - Table
+         button(class="btny btn btn-info" type="submit", value="table" name="type",  onclick="showLoader()") Members List - Table
       - const sud = {"_id":"s5c91b6e25c1e530274c32215","fname":"Nurul","lname":"Huda","email":"nurulhuda859g@gmail.com","password":"111111","roll":202563,"shift":"Day","batch":"HSC-20","section":"S4","phone":"01948297466","message":"626","memberId":"20-D-S4-2563","photo":"np.png","__v":0}
       - const userDataDemo = [sud, sud, sud, sud, sud, sud, sud];
       .row.align-items-center
@@ -39,11 +38,11 @@ html#html.noscroll(lang='en')
               .contact-box
                 h3
                   if n.socials && n.socials.fb
-                    a.sb.fa.fa-facebook-square(href=`https://fb.me/${n.socials.fb}` target="_blank")
+                    a.sb.fab.fa-facebook-square(href=`https://fb.me/${n.socials.fb}` target="_blank")
                   if n.socials && n.socials.tw
-                    a.sb.fa.fa-twitter(href=`https://fb.me/${n.socials.fb}` target="_blank")
+                    a.sb.fab.fa-twitter(href=`https://fb.me/${n.socials.fb}` target="_blank")
                   if n.socials && n.socials.ig
-                    a.sb.fa.fa-instagram(href=`https://fb.me/${n.socials.fb}` target="_blank")
+                    a.sb.fab.fa-instagram(href=`https://fb.me/${n.socials.fb}` target="_blank")
                 a.btn.btn-dark(href=`tel:+88${n.phone}`)=`Call: ${n.phone}`
             br
     script.

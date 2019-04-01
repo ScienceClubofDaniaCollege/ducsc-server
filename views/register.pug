@@ -10,7 +10,7 @@ html#html.noscroll(lang='en')
     br
     br
     .form(onclick='generateMemberId()')
-      form.card(action='/register', method='POST', enctype='multipart/form-data')
+      form.card(action='/register', method='POST', enctype='multipart/form-data' onsubmit='showLoader()')
         img(src='https://daniascienceclub.cf/img/logo.svg', height='100px;')
         h Registration Form
         hr
@@ -31,7 +31,7 @@ html#html.noscroll(lang='en')
             | Confirm Password:
             input#cpassword(name='cpassword', type='password', placeholder='Password', minlength='6', onkeyup='validate();', required)
         |             Roll number:
-        input#roll(type='number', name='roll', maxlength='6', required)
+        input#roll(type='number', name='roll', pattern='[0-9]{6}', required)
         .row
           .col-xs-12.col-md-4
             | Shift:
@@ -100,4 +100,4 @@ html#html.noscroll(lang='en')
           const loader = document.querySelector('.loader');
           loader.classList.remove('hidden');
           };
-        btn.addEventListener('click', showLoader)
+        //- btn.addEventListener('click', showLoader)

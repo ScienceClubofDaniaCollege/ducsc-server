@@ -16,7 +16,9 @@ router.post('/', upload.single('photo'), (req, res) => {
         const link = await imgur.uploadImg(`public/members-image/${req.file.filename}`);
         req.body.photo = [link, `${config.get('ftp.server-address')}/${req.file.filename}`];
         await db.createMember(req.body);
-        mailer.sendEmailToNewMember(req.body.email); 
+        if (express().get('env') == 'developement'){        
+            mailer.sendEmailToNewMember(req.body.email); 
+        }
     }
     createMember();
     ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);

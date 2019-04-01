@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const register = require('./routes/register')
+const db = require('./modules/db')
 const login = require('./routes/login')
 const admin = require('./routes/admin')
 const home = require('./routes/home')
@@ -20,3 +21,9 @@ app.use('/login', login);
 app.use('/admin', admin);
 
 app.listen(port, () => console.log(`Listening on port ${port}! http://localhost:${port}/`));
+db.connect();
+// console.log(process.env.NODE_ENV != 'development');
+// console.log(app.get('env') != 'development');
+// console.log(express().get('env'));
+// console.log((express().get('env') != 'developement'));
+
