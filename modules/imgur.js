@@ -14,7 +14,9 @@ const uploadFromUrl = () => {
 };
 
 const uploadImg = async (imgPath) => {
-    const result = await imgur.uploadFile(imgPath).then((json) => {return json.data.link;}).catch((err) => {console.error(err.message);});
+    const result = await imgur.uploadFile(imgPath)
+    .then((json) => {console.log('Image uploaded to Imgur...'); return json.data.link;})
+    .catch((err) => {console.error(err.message);});
     return result;
 }
 

@@ -1,3 +1,6 @@
+const bcrypt = require('bcrypt');
+const { thankYou } = require('../modules/tempHTML');
+const { validate } = require('../models/member');
 const config = require('config');
 const imgur = require('../modules/imgur');
 const upload = require('../modules/multer');
@@ -7,36 +10,32 @@ const mailer = require('../modules/mailer');
 const express = require('express');
 const router = express.Router();
 
-const Joi = require('joi');
-
 router.use(express.urlencoded({extended: true}));
 // login and registration endpoints
-router.post('/', upload.single('photo'), (req, res) => {
+router.post('/', upload.single('photo'), async (req, res) => {
+    
+    const { error } = validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+    let member = await db.getMemberById(req.body.memberId);
+    if (member) return res.send('You are already registered');
+    member = req.body;
     const createMember = async () => {
-        const link = await imgur.uploadImg(`public/members-image/${req.file.filename}`);
-        req.body.photo = [link, `${config.get('ftp.server-address')}/${req.file.filename}`];
-        await db.createMember(req.body);
-        if (express().get('env') == 'developement'){        
-            mailer.sendEmailToNewMember(req.body.email); 
-        }
+    const imgurLink = await imgur.uploadImg(`public/members-image/${req.file.filename}`);
+    member.photo = [imgurLink, `${config.get('ftp.server-address')}/${req.file.filename}`];
+    let salt = await bcrypt.genSalt(10);
+    member.password = await bcrypt.hash(member.password, salt);
+    await db.createMember(member);
+    if (express().get('env') == 'developement') mailer.sendEmailToNewMember(member.email);
+
+    ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);
+
+    res.send(thankYou);
     }
     createMember();
-    ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);
-    res.send(`<script type="text/javascript">   
-    function Redirect() 
-    {  
-        window.location="/login"; 
-    } 
-    document.write("<br><br><br><h1 style='text-align:center;'><strong style='color:dodgerblue'>Thank you for registering.</strong>You will be redirected to the login page in 5 seconds</h1>"); 
-    setTimeout('Redirect()', 5000);   
-</script>`);
 });
-
 
 router.get('/', (req, res) => {
     res.render('register', null);
 });
-
-
 
 module.exports = router;

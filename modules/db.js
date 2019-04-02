@@ -24,6 +24,10 @@ const getMembers = async () => {
     const result = await Member.find();
     return result;
 };
+const getMemberById = async (memberId) => {
+    const result = await Member.findOne({memberId: memberId});
+    return result;
+};
 // function for creating member
 const createMember = async (memberInfo) => {
     const member = new Member(memberInfo);
@@ -52,6 +56,7 @@ const approveMember = async (memberId) => {
     return result;
 };
 exports.getMembers = getMembers;
+exports.getMemberById = getMemberById;
 exports.createMember = createMember;
 exports.getMemberByLoginData = getMemberByLoginData;
 exports.approveMember = approveMember;

@@ -11,7 +11,7 @@ const multerConfig = {
         //Then give the file a unique name
         filename: function(req, file, next){
             // console.log(file);
-            console.log(req.body);
+            // console.log(req.body);
 
             function generateMemberId(){
                 var batch = req.body.batch;
@@ -37,7 +37,7 @@ const multerConfig = {
               }
             const image = file.mimetype.startsWith('image/');
             if(image){
-              console.log('photo uploaded');
+              console.log('Image uploaded to the server...');
               next(null, true);
             }else{
               console.log("file not supported");
