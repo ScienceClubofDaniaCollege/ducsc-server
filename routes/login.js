@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
         console.log(member);
         
         if (!member) return res.status(400).send("<br><br><br><h1>Wrong email or password</h1>");
-        const isValid = bcrypt.compare(req.body.password, member.password);
+        const isValid = await bcrypt.compare(req.body.password, member.password);
         if (isValid) res.render('profile', member);
 });
 
