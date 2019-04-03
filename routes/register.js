@@ -32,11 +32,9 @@ router.post('/', upload.single('photo'), async (req, res) => {
     if (member) return res.send('You are already registered');
     member = _.pick(req.body, ['fname', 'lname', 'email', 'phone', 'batch', 'shift', 'section', 'roll', 'bio', 'password']);
     const createMember = async () => {
-        if (express().get('env') != 'development') {
-            const imgurLink = await imgur.uploadImg(`public/members-image/${req.file.filename}`);
-            member.photo = [imgurLink, `${config.get('ftp.server-address')}/${req.file.filename}`];
-            ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);
-        }
+        const imgurLink = await imgur.uploadImg(`public/members-image/${req.file.filename}`);
+        member.photo = [imgurLink, `${config.get('ftp.server-address')}/${req.file.filename}`];
+        ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);
         let salt = await bcrypt.genSalt(10);
         member.password = await bcrypt.hash(member.password, salt);
         member.memberId = generateMemberId();
