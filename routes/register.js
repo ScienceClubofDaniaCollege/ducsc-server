@@ -6,7 +6,7 @@ const config = require('config');
 const imgur = require('../modules/imgur');
 const upload = require('../modules/multer');
 const db = require('../modules/db');
-const ftp = require('../modules/ftp');
+// const ftp = require('../modules/ftp');
 const mailer = require('../modules/mailer');
 const express = require('express');
 const router = express.Router();
@@ -34,7 +34,7 @@ router.post('/', upload.single('photo'), async (req, res) => {
     const createMember = async () => {
         const imgurLink = await imgur.uploadImg(`public/members-image/${req.file.filename}`);
         member.photo = [imgurLink, `${config.get('ftp.server-address')}/${req.file.filename}`];
-        ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);
+//        ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);
         let salt = await bcrypt.genSalt(10);
         member.password = await bcrypt.hash(member.password, salt);
         member.memberId = generateMemberId();
