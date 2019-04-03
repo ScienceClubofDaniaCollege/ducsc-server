@@ -28,10 +28,23 @@ const getMemberById = async (memberId) => {
     const result = await Member.findOne({memberId: memberId});
     return result;
 };
+const getMemberByEmail = async (email) => {
+    const result = await Member.findOne({email: email});
+    return result;
+};
 // function for creating member
 const createMember = async (memberInfo) => {
     const member = new Member(memberInfo);
-    const result = await member.save();
+    const result = await member.save(function(err){
+        if (err && err.code === 11000) {
+            res.send('Registered')
+            console.log('already reg');
+            return;
+        }
+    });
+    // .then(()=> console.log('Member registered!')
+    // .catch(()=> console.log('Error registering'))
+    // );
     return result;
 };
 const getMemberByLoginData = async (memberEmail, memberPassword) => {
@@ -57,6 +70,7 @@ const approveMember = async (memberId) => {
 };
 exports.getMembers = getMembers;
 exports.getMemberById = getMemberById;
+exports.getMemberByEmail = getMemberByEmail;
 exports.createMember = createMember;
 exports.getMemberByLoginData = getMemberByLoginData;
 exports.approveMember = approveMember;

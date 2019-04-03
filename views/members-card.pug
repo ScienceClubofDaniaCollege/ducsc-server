@@ -13,8 +13,8 @@ html#html.noscroll(lang='en')
       h1 Here is the list of all registered members
       form(action="members", method="get")
          button(class="btny btn btn-info" type="submit", value="table" name="type",  onclick="showLoader()") Members List - Table
-      - const sud = {"_id":"s5c91b6e25c1e530274c32215","fname":"Nurul","lname":"Huda","email":"nurulhuda859g@gmail.com","password":"111111","roll":202563,"shift":"Day","batch":"HSC-20","section":"S4","phone":"01948297466","message":"626","memberId":"20-D-S4-2563","photo":"np.png","__v":0}
-      - const userDataDemo = [sud, sud, sud, sud, sud, sud, sud];
+      //- - const sud = {"_id":"s5c91b6e25c1e530274c32215","fname":"Nurul","lname":"Huda","email":"nurulhuda859g@gmail.com","password":"111111","roll":202563,"shift":"Day","batch":"HSC-20","section":"S4","phone":"01948297466","message":"626","memberId":"20-D-S4-2563","photo":"np.png","__v":0}
+      //- - const userDataDemo = [sud, sud, sud, sud, sud, sud, sud];
       .row.align-items-center
         each n, i in userData || userDataDemo
           - const fullName = n.fname+' '+n.lname;
@@ -30,11 +30,13 @@ html#html.noscroll(lang='en')
                   if n.isApproved
                     i.fas.fa-check-circle(style="color: dodgerblue;")
                   else
-                    i.fas.fa-times-circle(style="color: red;")
+                    i.fas.fa-times-circle(style="color: gray;")
+                p=n.bio
                 h6=`${n.memberType || memberType} of DSC`
-                p Dania University College
+                //- p Dania University College
                 p=`Batch: ${n.batch}`
                 p=`Roll: ${n.roll}`
+                h6=`Member ID: ${n.memberId}`
               .contact-box
                 h3
                   if n.socials && n.socials.fb

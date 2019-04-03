@@ -1,0 +1,62 @@
+doctype html
+html
+    include includes/head.pug
+    body(style='background:white;')
+        br
+        br
+        br
+        .container.text-center
+            h1.card(style='padding:10px') Here is your profile.
+            br
+            p.alert.alert-info  For now you can only see your information but later on you can edit and more info to your account.
+            br
+            - const fullName = fname+' '+lname;
+            - const memberType = 'Member'
+            .row
+                .col-12.col-sm-12.col-md-5.col-lg-4.col-xl-4(style='width:300px;')
+                    .card(style="height:720px;")
+                        if photo[0]
+                            img.card-img-top(src=`${photo[0]}`, alt=`${fullName}'s Picture` style='width:100%; height:270px; object-fit:cover')
+                        else
+                            img.card-img-top(src="https://i.imgur.com/fIgVWP1.png", alt=`${fullName}'s Picture` style='width:100%; height:270px; object-fit:cover')
+                        .card-body
+                            h2.card-title.name-card=fullName
+                                if isApproved
+                                    i.fas.fa-check-circle(style="color: dodgerblue;")
+                                else
+                                    i.fas.fa-times-circle(style="color: gray;")
+                            p=bio
+                            h6=`${memberType || memberType} of DSC`
+                            p=`Batch: ${batch}`
+                            p=`Roll: ${roll}`
+                            h6=`Member ID: ${memberId}`
+                        .contact-box
+                            h3
+                            if socials && socials.fb
+                                a.sb.fab.fa-facebook-square(href=`https://fb.me/${socials.fb}` target="_blank")
+                            if socials && socials.tw
+                                a.sb.fab.fa-twitter(href=`https://twitter.com/${socials.tw}` target="_blank")
+                            if socials && socials.ig
+                                a.sb.fab.fa-instagram(href=`https://instagram.com/${socials.ig}` target="_blank")
+                            a.btn.btn-dark(href=`tel:+88${phone}`)=`Call: ${phone}`
+                .col-12.col-sm-12.col-md-7.col-lg-8.col-xl-8(style='width:300px;')
+                    .card.text-left
+                        .card-body
+                            h4.card-title.text-center.sky Details About You
+                            form(action='member' method='PUT')
+
+                                .form-group
+                                    label(for='fn') First Name:
+                                        input(name='fname' value=`${fname}` id='fn'  disabled)
+                                .form-group
+                                    label(for='ln') Last Name:
+                                        input(name='lname' value=`${lname}` id='ln' disabled)
+                                .form-group
+                                    label(for='bio') Bio:
+                                        input(name='bio' value=`${bio}` id='bio' disabled)
+                                p=`Member Type: ${memberType}`
+                                p=`Batch: ${batch}`
+                                p=`Roll: ${roll}`
+                                h6=`Member ID: ${memberId}`
+                                button.btn.btn-info.text-right(onclick='edit()') Edit Profile
+            br

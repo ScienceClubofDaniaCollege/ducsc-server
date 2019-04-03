@@ -26,5 +26,6 @@ app.listen(port, () => console.log(`Listening on port ${port}! http://${ip.addre
 // console.log(process.env.NODE_ENV != 'development');
 // console.log(app.get('env') != 'development');
 // console.log(express().get('env'));
-// console.log((express().get('env') != 'developement'));
+// console.log((express().get('env') != 'development'));
+// console.log((express().get('env')));
 

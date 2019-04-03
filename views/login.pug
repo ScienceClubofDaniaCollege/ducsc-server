@@ -14,11 +14,11 @@ html#html.noscroll(lang='en')
         h Login
         hr
         |             Email:
-        input(name='email', type='email', placeholder='example@gmail.com', required='', focus='')
+        input(name='email', type='email', placeholder='example@gmail.com', required, focus)
         |             Password:
         .row
           .col-12
-            input#password(name='password', type='password', placeholder='Password', required='')
+            input#password(name='password', type='password', placeholder='Password', required)
           .eye
             i#eye.fas.fa-eye(onclick='toglePassVisibility()')
             i#eyex.fas.fa-eye-slash(onclick='toglePassVisibility()')
