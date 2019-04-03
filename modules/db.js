@@ -35,16 +35,7 @@ const getMemberByEmail = async (email) => {
 // function for creating member
 const createMember = async (memberInfo) => {
     const member = new Member(memberInfo);
-    const result = await member.save(function(err){
-        if (err && err.code === 11000) {
-            res.send('Registered')
-            console.log('already reg');
-            return;
-        }
-    });
-    // .then(()=> console.log('Member registered!')
-    // .catch(()=> console.log('Error registering'))
-    // );
+    const result = await member.save();
     return result;
 };
 const getMemberByLoginData = async (memberEmail, memberPassword) => {
