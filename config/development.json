@@ -1,7 +1,7 @@
 {
     "name": "Development",
     "database": {
-        "con-string": "",
+        "con-string": "mongodb://localhost/dsc",
         "cn": "dev-member"
     },
     "ftp": {

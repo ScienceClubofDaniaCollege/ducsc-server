@@ -1,3 +1,4 @@
+// all the neccessery packages
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
 const { thankYou } = require('../modules/tempHTML');
@@ -6,7 +7,7 @@ const config = require('config');
 const imgur = require('../modules/imgur');
 const upload = require('../modules/multer');
 const db = require('../modules/db');
-// const ftp = require('../modules/ftp');
+const ftp = require('../modules/ftp');
 const mailer = require('../modules/mailer');
 const express = require('express');
 const router = express.Router();
@@ -28,13 +29,21 @@ router.post('/', upload.single('photo'), async (req, res) => {
 
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
+
     let member = await db.getMemberById(req.body.memberId);
-    if (member) return res.send('You are already registered');
+    if (member) return res.send('<br><br><br><h1>You are already registered<br>Check if you are available in the <a href="/members?type=table">member list</a><br> If you think someone else has registered with your information then contact with us.</h1>');
+    member = await db.getMemberByEmail(req.body.email);
+    if (member) return res.send('<br><br><br><h1>Someone has already registered with the given email address</h1>');
+    member = await db.getMemberByPhone(req.body.phone);
+    if (member) return res.send('<br><br><br><h1>Someone has already registered with the given phone number</h1>');
+
     member = _.pick(req.body, ['fname', 'lname', 'email', 'phone', 'batch', 'shift', 'section', 'roll', 'bio', 'password']);
     const createMember = async () => {
+        if (express().get('env') != 'development') {
         const imgurLink = await imgur.uploadImg(`public/members-image/${req.file.filename}`);
         member.photo = [imgurLink, `${config.get('ftp.server-address')}/${req.file.filename}`];
-//        ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);
+        ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);
+        }
         let salt = await bcrypt.genSalt(10);
         member.password = await bcrypt.hash(member.password, salt);
         member.memberId = generateMemberId();

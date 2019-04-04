@@ -28,6 +28,10 @@ const getMemberById = async (memberId) => {
     const result = await Member.findOne({memberId: memberId});
     return result;
 };
+const getMemberByPhone = async (phone) => {
+    const result = await Member.findOne({phone: phone});
+    return result;
+};
 const getMemberByEmail = async (email) => {
     const result = await Member.findOne({email: email});
     return result;
@@ -61,6 +65,7 @@ const approveMember = async (memberId) => {
 };
 exports.getMembers = getMembers;
 exports.getMemberById = getMemberById;
+exports.getMemberByPhone = getMemberByPhone;
 exports.getMemberByEmail = getMemberByEmail;
 exports.createMember = createMember;
 exports.getMemberByLoginData = getMemberByLoginData;
