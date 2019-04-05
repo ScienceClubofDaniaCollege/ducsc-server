@@ -1,10 +1,8 @@
 const config = require('config');
 const JSFtp = require("jsftp");
 const fs = require("fs");
-const Ftp = new JSFtp(config.get('ftp')
-// .then(()=> console.log('Connected to FTP...')
-// .catch(()=> console.log('Could not connect to FTP...'))
-);
+const Ftp = new JSFtp(config.get('ftp'));
+Ftp.on('error', (err)=> console.error('FTP Error:', err.message));
 
 const createDir = (dirname) => {
     Ftp.raw("mkd", dirname, (err, data) => {

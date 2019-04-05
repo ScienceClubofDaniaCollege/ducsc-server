@@ -32,31 +32,85 @@ html
                             h6=`Member ID: ${memberId}`
                         .contact-box
                             h3
-                            if socials && socials.fb
-                                a.sb.fab.fa-facebook-square(href=`https://fb.me/${socials.fb}` target="_blank")
-                            if socials && socials.tw
-                                a.sb.fab.fa-twitter(href=`https://twitter.com/${socials.tw}` target="_blank")
-                            if socials && socials.ig
-                                a.sb.fab.fa-instagram(href=`https://instagram.com/${socials.ig}` target="_blank")
+                                if socials && socials.fb.length != 0
+                                    a.sb.fab.fa-facebook-square(href=`https://fb.me/${socials.fb}` target="_blank")
+                                if socials && socials.tw.length != 0
+                                    a.sb.fab.fa-twitter(href=`https://twitter.com/${socials.tw}` target="_blank")
+                                if socials && socials.ig.length != 0
+                                    a.sb.fab.fa-instagram(href=`https://instagram.com/${socials.ig}` target="_blank")
                             a.btn.btn-dark(href=`tel:+88${phone}`)=`Call: ${phone}`
+                    br
                 .col-12.col-sm-12.col-md-7.col-lg-8.col-xl-8(style='width:300px;')
                     .card.text-left
                         .card-body
-                            h4.card-title.text-center.sky Details About You
-                            form(action='member' method='PUT')
+                            h4.card-title.text-center Details About You
+                            form.profileForm(action='register/update' method='POST')
 
-                                .form-group
-                                    label(for='fn') First Name:
-                                        input(name='fname' value=`${fname}` id='fn'  disabled)
-                                .form-group
-                                    label(for='ln') Last Name:
-                                        input(name='lname' value=`${lname}` id='ln' disabled)
+                                .form-row
+                                    .col
+                                        label(for='fname') First Name:
+                                        input(name='fname' value=`${fname}` id='fname' readonly required)
+                                    .col
+                                        label(for='lname') Last Name: 
+                                        input(name='lname' value=`${lname}` id='lname' readonly required)
                                 .form-group
                                     label(for='bio') Bio:
-                                        input(name='bio' value=`${bio}` id='bio' disabled)
-                                p=`Member Type: ${memberType}`
-                                p=`Batch: ${batch}`
-                                p=`Roll: ${roll}`
-                                h6=`Member ID: ${memberId}`
-                            button.btn.btn-info.text-right(onclick='edit()') Edit Profile
-            br
+                                    input(name='bio' value=`${bio}` id='bio' readonly required)
+                                .form-group
+                                    label(for='bio') Email:
+                                    input(name='email' value=`${email}` id='bio' readonly)
+                                .form-group
+                                    label(for='bio') Phone:
+                                    input(name='phone' value=`${phone}` id='bio' readonly)
+                                    br
+                                    br
+                                    p.text-center Social Links:                                
+                                .form-row
+                                    .col
+                                        small.form-text.text-muted Facebook Username
+                                        input(name='fb' placeholder='facebook' value=`${socials.fb}` id='bio' readonly)
+                                    .col
+                                        small.form-text.text-muted Twitter Username
+                                        input(name='tw' placeholder='twitter' value=`${socials.tw}` id='bio' readonly)
+                                    .col
+                                        small.form-text.text-muted Instagram Username
+                                        input(name='ig' placeholder='instagram'  value=`${socials.ig}` id='bio' readonly)
+                                        input(name='memberId' placeholder='instagram' id='bio' hidden value=`${memberId}`)
+                                .text-right
+                                    button.btn.btn-primary(type='submit' id='submitBtn' style='display:none;') Submit     
+                                    button.btn.btn-info(onclick='toggleEdit()' type='button' id='changEditState') Edit                            
+                            .badges.text-center
+                                span.badge.badge-success=`Type: ${memberType}`
+                                span.badge.badge-info(style='margin:5px;')=`Batch: ${batch}`
+                                span.badge.badge-success=`Roll: ${roll}`
+                                br
+                                span.badge.badge-primary=`Member ID: ${memberId}`
+                    br
+        script.
+            function toggleEdit() {
+                let toggleEditBtn = document.querySelector('#changEditState');
+                let submitBtn = document.querySelector('#submitBtn');
+
+                if (toggleEditBtn.innerText == 'Edit') {
+                    let inputs, index;
+                    inputs = document.getElementsByTagName('input');
+                    for (index = 0; index < inputs.length; ++index) {
+                        inputs[index].removeAttribute('readonly');
+                        inputs[index].style = 'border: 1px solid;background-color: white;';
+                    }
+                    inputs[0].focus();
+                    toggleEditBtn.innerText = 'Cancel'
+                    submitBtn.style.display = 'inline-block';}
+                    
+                    else {
+                    let inputs, index;
+                    inputs = document.getElementsByTagName('input');
+                    for (index = 0; index < inputs.length; ++index) {
+                        inputs[index].setAttribute('readonly', '');
+                        inputs[index].style = '';
+                    }
+                    inputs[0].blur();
+                    toggleEditBtn.innerText = 'Edit'
+                    submitBtn.style.display = 'none';}
+
+                    }

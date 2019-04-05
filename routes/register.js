@@ -26,11 +26,11 @@ router.post('/', upload.single('photo'), async (req, res) => {
         var id = tempId.slice(4,20);
         return id;
     }
-
+    let memberId = generateMemberId();
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    let member = await db.getMemberById(req.body.memberId);
+    let member = await db.getMemberById(memberId);
     if (member) return res.send('<br><br><br><h1>You are already registered<br>Check if you are available in the <a href="/members?type=table">member list</a><br> If you think someone else has registered with your information then contact with us.</h1>');
     member = await db.getMemberByEmail(req.body.email);
     if (member) return res.send('<br><br><br><h1>Someone has already registered with the given email address</h1>');
@@ -52,6 +52,24 @@ router.post('/', upload.single('photo'), async (req, res) => {
         res.send(thankYou);
     }
     createMember();
+});
+
+
+
+router.post('/update', async (req, res) => {
+    // const { error } = validate(req.body);
+    // if (error) return res.status(400).send(error.details[0].message);
+    let member = req.body;
+    console.log(member);
+    
+    // member = await db.getMemberByEmail(req.body.email);
+    // if (member) return res.send('<br><br><br><h1>Someone has already registered with the given email address</h1>');
+    // member = await db.getMemberByPhone(req.body.phone);
+    // if (member) return res.send('<br><br><br><h1>Someone has already registered with the given phone number</h1>');
+
+    member = _.pick(req.body, ['fname', 'lname', 'email', 'phone', 'bio', 'fb', 'tw', 'ig', 'memberId']);
+    result = await db.updateMemberInfo(member.memberId, member);
+    res.send('Updated');
 });
 
 router.get('/', (req, res) => {

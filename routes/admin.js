@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+const { auth } = require('../middleware/auth');
 const config = require('config')
 const db = require('../modules/db');
 const express = require('express');
@@ -7,7 +9,7 @@ const mailer = require('../modules/mailer');
 router.get('/send-email', (req, res) => {
     res.render('send-mail', null)
 });
-router.get('/', (req, res) => {
+router.get('/',auth,  (req, res) => {
     res.render('admin', null)
 });
 
