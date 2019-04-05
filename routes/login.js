@@ -14,7 +14,8 @@ router.post('/', async (req, res) => {
     console.log(isValid);
     if (isValid) {
         const token = member.generateAuthToken();
-        res.cookie('token', token).redirect('/me');
+        res.cookie('token', token).redirect('
+        /me');
     } else {
         return res.status(400).send("<br><br><br><h1>Wrong roll or password</h1>");}
 });

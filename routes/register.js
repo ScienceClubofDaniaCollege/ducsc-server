@@ -1,4 +1,5 @@
 // all the neccessery packages
+const { auth } = require('../middleware/auth');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
 const { thankYou } = require('../modules/tempHTML');
@@ -56,7 +57,7 @@ router.post('/', upload.single('photo'), async (req, res) => {
 
 
 
-router.post('/update', async (req, res) => {
+router.post('/update', auth, async (req, res) => {
     // const { error } = validate(req.body);
     // if (error) return res.status(400).send(error.details[0].message);
     let member = req.body;

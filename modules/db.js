@@ -75,8 +75,7 @@ const updateMemberInfo = async (memberId, newInfo) => {
             email: newInfo.email,
             phone: newInfo.phone,
             bio: newInfo.bio,
-            socials: {fb: newInfo.fb, tw: newInfo.tw, ig: newInfo.ig},
-            isApproved: true
+            socials: {fb: newInfo.fb, tw: newInfo.tw, ig: newInfo.ig}
             }
         });
     return result;
