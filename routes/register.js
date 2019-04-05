@@ -69,7 +69,7 @@ router.post('/update', async (req, res) => {
 
     member = _.pick(req.body, ['fname', 'lname', 'email', 'phone', 'bio', 'fb', 'tw', 'ig', 'memberId']);
     result = await db.updateMemberInfo(member.memberId, member);
-    res.send('Updated');
+    res.redirect('/me');
 });
 
 router.get('/', (req, res) => {

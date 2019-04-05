@@ -1,4 +1,5 @@
 // all the packeges and their settings
+const cookieParser = require('cookie-parser');
 const express = require('express');
 const app = express();
 const register = require('./routes/register')
@@ -14,6 +15,7 @@ app.use('/static', express.static('public'));
 
 app.set('view engine', 'pug')
 
+app.use(cookieParser());
 app.use('/', home);
 app.use('/members', listMember);
 app.use('/register', register);
