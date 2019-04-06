@@ -67,6 +67,10 @@ const approveMember = async (memberId) => {
     const result = await Member.updateOne({memberId: memberId}, {$set:{isApproved: true}});
     return result;
 };
+const makeAdmin = async (memberId) => {
+    const result = await Member.updateOne({memberId}, {$set:{isAdmin: true}});
+    return result;
+};
 const updateMemberInfo = async (memberId, newInfo) => {
     const result = await Member.updateOne({memberId: memberId}, {
         $set:{
@@ -88,6 +92,7 @@ exports.createMember = createMember;
 exports.getMemberByLoginData = getMemberByLoginData;
 exports.getOneMember = getOneMember;
 exports.approveMember = approveMember;
+exports.makeAdmin = makeAdmin;
 exports.getMembersEmail = getMembersEmail;
 exports.getPendingMembers = getPendingMembers;
 exports.connect = connectDB;

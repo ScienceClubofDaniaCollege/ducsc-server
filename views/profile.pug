@@ -11,7 +11,6 @@ html
             p.alert.alert-info  For now you can only see your information but later on you can edit and more info to your account.
             br
             - const fullName = fname+' '+lname;
-            - const memberType = 'Member'
             .row
                 .col-12.col-sm-12.col-md-5.col-lg-4.col-xl-4(style='width:300px;')
                     .card(style="height:720px;")
@@ -85,6 +84,13 @@ html
                                 span.badge.badge-success=`Roll: ${roll}`
                                 br
                                 span.badge.badge-primary=`Member ID: ${memberId}`
+                                if isSuper
+                                    h3
+                                        span.badge.badge-danger Super
+                                if isAdmin
+                                    h3
+                                        span.badge.badge-warning Admin
+                                            a(href='/admin') -Manage
                     br
                     button.btn.btn-info(onclick='logout()') Logout                            
         script.

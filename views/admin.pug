@@ -1,8 +1,8 @@
 doctype html
 html#html.noscroll(lang='en')
-    include includes/head.pug  
+    include includes/head.pug
     body#body.noscroll(style="background-color: white;")
-        .container
+        .container.text-center
             h1 This is only for admin
             a(href="/admin/send-email")
                 button Send email to all members
@@ -14,3 +14,7 @@ html#html.noscroll(lang='en')
             br
             a(href="/admin/approve-members")
                 button Approve members
+            br
+            br
+            a(href="/admin/make-admin")
+                button Make admin
