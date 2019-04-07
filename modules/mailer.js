@@ -15,7 +15,7 @@ function sendEmailToNewMember(emailAddress){
         from: 'daniascienceclub@gmail.com',
         to: emailAddress,
         subject: 'Thank you for registering as a member of DSC',
-        text: 'Thank You very much for registering as a member of Dani Science Club. We have collected your data but for now you can not login but soon you can do that.'
+        text: 'Thank You very much for registering as a member of Dania Science Club. We have collected your data but for now you can not login but soon you can do that.'
     };
     
     transporter.sendMail(mailOptions, function(error, info){

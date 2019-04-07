@@ -84,13 +84,21 @@ const updateMemberInfo = async (memberId, newInfo) => {
         });
     return result;
 };
+const updateOneMember = async (memberId, newInfo) => {
+    const result = await Member.updateOne({memberId: memberId}, {
+        $set: newInfo
+        }, {new: true});
+    return result;
+};
+exports.getOneMember = getOneMember;
+exports.updateOneMember = updateOneMember;
+
 exports.getMembers = getMembers;
 exports.getMemberById = getMemberById;
 exports.getMemberByPhone = getMemberByPhone;
 exports.getMemberByEmail = getMemberByEmail;
 exports.createMember = createMember;
 exports.getMemberByLoginData = getMemberByLoginData;
-exports.getOneMember = getOneMember;
 exports.approveMember = approveMember;
 exports.makeAdmin = makeAdmin;
 exports.getMembersEmail = getMembersEmail;

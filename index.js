@@ -6,6 +6,7 @@ const register = require('./routes/register')
 const db = require('./modules/db')
 const login = require('./routes/login')
 const admin = require('./routes/admin')
+const member = require('./routes/member')
 const home = require('./routes/home')
 const listMember = require('./routes/list-member')
 
@@ -18,6 +19,7 @@ app.set('view engine', 'pug')
 app.use(cookieParser());
 app.use('/', home);
 app.use('/members', listMember);
+app.use('/member', member);
 app.use('/register', register);
 app.use('/login', login);
 app.use('/admin', admin);

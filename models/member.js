@@ -15,6 +15,7 @@ const memberSchema = new mongoose.Schema({
     bio: String,
     memberId: {type: String, unique: true, required: true},
     isApproved: {type: Boolean, default: false},
+    isSuper: {type: Boolean, default: false},
     memberType: {type: String, default: 'Member'},
     isAdmin: {type: Boolean, default: false},
     photo: {type: Array, required: true},

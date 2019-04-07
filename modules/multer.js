@@ -47,5 +47,44 @@ const multerConfig = {
             }
         }
       };
+const multerConfigUpd = {
+    
+    storage: multer.diskStorage({
+     //Setup where the user's file will go
+     destination: function(req, file, next){
+       next(null, './public/members-image');
+       },   
+        
+        //Then give the file a unique name
+        filename: function(req, file, next){
+            // console.log(file);
+            // console.log(req.body);
+
+            var memberId = req.member.memberId;
+            const ext = file.mimetype.split('/')[1];
+            // next(null, file.fieldname + '-' + file.originalname	+ '-' + Date.now()+ '-' + req + '.'+ext);
+            next(null, memberId	+ '-' + Date.now()+'.'+ext);
+          }
+        }),   
+        
+        //A means of ensuring only images are uploaded. 
+        fileFilter: function(req, file, next){
+              if(!file){
+                next();
+              }
+            const image = file.mimetype.startsWith('image/');
+            if(image){
+              console.log('Image uploaded to the server...');
+              next(null, true);
+            }else{
+              console.log("file not supported");
+              
+              //TODO:  A better message response to user on failure.
+              return next();
+            }
+        }
+      };
 const upload = multer(multerConfig);
-module.exports = upload;
+const upd = multer(multerConfigUpd);
+module.exports.reg = upload;
+module.exports.upd = upd;

@@ -6,18 +6,33 @@ html
         br
         br
         .container.text-center
-            h1.card(style='padding:10px') Here is your profile.
-            br
-            p.alert.alert-info  For now you can only see your information but later on you can edit and more info to your account.
+            // Modal
+            #exampleModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+                .modal-dialog(role='document')
+                    .modal-content
+                        .modal-header
+                            h5#exampleModalLabel.modal-title Update Your Profile Image
+                            button.close(type='button', data-dismiss='modal', aria-label='Close')
+                            span(aria-hidden='true') ×
+                        .modal-body
+                            form(action="/member/update-image"  method='POST', enctype='multipart/form-data')
+                                input(type="file", name="newImage")
+                                .modal-footer
+                                    button.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
+                                    button.btn.btn-primary(type='submit') Upload
+
+            h3.alert.alert-info  Profile Page
             br
             - const fullName = fname+' '+lname;
             .row
                 .col-12.col-sm-12.col-md-5.col-lg-4.col-xl-4(style='width:300px;')
-                    .card(style="height:720px;")
+                    .card(style="height:800px;")
                         if photo[0]
                             img.card-img-top(src=`${photo[0]}`, alt=`${fullName}'s Picture` style='width:100%; height:270px; object-fit:cover')
                         else
                             img.card-img-top(src="https://i.imgur.com/fIgVWP1.png", alt=`${fullName}'s Picture` style='width:100%; height:270px; object-fit:cover')
+                        .text-right
+                            button.btn.btn-dark(type='file' style='width:60px;margin-top:-80px;opacity: 0.8;'  data-toggle="modal" data-target="#exampleModal") Edit
                         .card-body
                             h2.card-title.name-card=fullName
                                 if isApproved
@@ -54,7 +69,7 @@ html
                                         input(name='lname' value=`${lname}` id='lname' readonly required)
                                 .form-group
                                     label(for='bio') Bio:
-                                    input(name='bio' value=`${bio}` id='bio' readonly required)
+                                    input(name='bio' value=`${bio}` id='bio' maxlength='50' readonly required)
                                 .form-group
                                     label(for='bio') Email:
                                     input(name='email' value=`${email}` id='bio' readonly)
@@ -122,3 +137,6 @@ html
 
                     }
             function logout() {document.cookie = 'token=';window.location.href='/login'}
+        script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js', integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN', crossorigin='anonymous')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js', integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q', crossorigin='anonymous')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js', integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl', crossorigin='anonymous')

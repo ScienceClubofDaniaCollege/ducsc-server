@@ -15,7 +15,7 @@ const router = express.Router();
 
 router.use(express.urlencoded({extended: true}));
 // login and registration endpoints
-router.post('/', upload.single('photo'), async (req, res) => {
+router.post('/', upload.reg.single('photo'), async (req, res) => {
     
     function generateMemberId(){
         var batch = req.body.batch;
