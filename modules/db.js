@@ -1,7 +1,7 @@
 // all the neccessery packages
 const {Member} = require('../models/member')
-const config = require('config');
 const mongoose = require('mongoose');
+const config = require('config');
 
 // connecting to db
 const connectDB = () => {
@@ -17,6 +17,11 @@ const connectDB = () => {
 const getMembersEmail = async () => {
     members = await getMembers();
     let result = members.map(a => a.email).toString();
+    return result;
+};
+// function for getting emails of all members
+const getMembersEmail2 = async () => {
+    members = await getMembers();
     return result;
 };
 

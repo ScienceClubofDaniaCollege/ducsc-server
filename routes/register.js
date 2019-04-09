@@ -18,7 +18,7 @@ router.use(express.urlencoded({extended: true}));
 router.post('/', upload.reg.single('photo'), async (req, res) => {
     
     function generateMemberId(){
-        var batch = req.body.batch;
+        var  batch = req.body.batch;
         var shift = req.body.shift;
         var section = req.body.section;
         var roll = req.body.roll;

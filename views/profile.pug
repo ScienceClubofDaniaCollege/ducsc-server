@@ -2,9 +2,6 @@ doctype html
 html
     include includes/head.pug
     body(style='background:white;')
-        br
-        br
-        br
         .container.text-center
             // Modal
             #exampleModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true' style='margin-top: 80px;')
@@ -16,7 +13,7 @@ html
                             span(aria-hidden='true') ×
                         .modal-body
                             form(action="/member/update-image"  method='POST', enctype='multipart/form-data')
-                                input(type="file", name="newImage")
+                                input(type="file", name="newImage" required)
                                 .modal-footer
                                     button.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
                                     button.btn.btn-primary(type='submit') Upload
@@ -58,7 +55,7 @@ html
                     .card.text-left
                         .card-body
                             h4.card-title.text-center Details About You
-                            form.profileForm(action='/register/update' method='POST')
+                            form.profileForm(action='/register/update' method='POST' onInput='makeBtnEnabled()')
 
                                 .form-row
                                     .col
@@ -91,7 +88,7 @@ html
                                         input(name='ig' placeholder='instagram'  value=`${socials.ig}` id='bio' readonly)
                                         input(name='memberId' placeholder='instagram' id='bio' hidden value=`${memberId}`)
                                 .text-right
-                                    button.btn.btn-primary(type='submit' id='submitBtn' style='display:none;') Submit     
+                                    button.btn.btn-primary(type='submit' id='submitBtn' style='display:none;' disabled) Submit     
                                     button.btn.btn-info(onclick='toggleEdit()' type='button' id='changEditState') Edit                            
                             .badges.text-center
                                 span.badge.badge-success=`Type: ${memberType}`
@@ -137,6 +134,12 @@ html
 
                     }
             function logout() {document.cookie = 'token=';window.location.href='/login'}
+
+            const updateProfileBtn = document.getElementById('submitBtn');
+            function makeBtnEnabled () {
+                console.log('make btn dble run')
+                updateProfileBtn.removeAttribute('disabled');
+            }
         script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js', integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN', crossorigin='anonymous')
         script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js', integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q', crossorigin='anonymous')
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js', integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl', crossorigin='anonymous')
