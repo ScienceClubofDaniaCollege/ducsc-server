@@ -1,5 +1,5 @@
-# Back_end-Dania_Science_Club-s-Web
-This is the server side of Dania_Science_Club-s-Web.
-// set the following env variables
-    // set process.env.DSC_gmail_pass=<gmail password>
-    // set process.env.DSC_db=<databasse connection string>
+# DSC-Backend
+* ## This is the server side of Dania_Science_Club-s-Web.
+* ### If you are a student of Dania College then you can help us to design this website.
+* ### We will be adding various educational content to this website.
+* ### We may present this website in some science fair.
