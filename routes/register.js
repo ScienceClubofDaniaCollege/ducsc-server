@@ -44,6 +44,9 @@ router.post('/', upload.reg.single('photo'), async (req, res) => {
         const imgurLink = await imgur.uploadImg(`public/members-image/${req.file.filename}`);
         member.photo = [imgurLink, `${config.get('ftp.server-address')}/${req.file.filename}`];
         ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);
+    }
+        if (express().get('env') == 'development') {
+            member.photo = ["https://i.imgur.com/fIgVWP1.png"];
         }
         let salt = await bcrypt.genSalt(10);
         member.password = await bcrypt.hash(member.password, salt);

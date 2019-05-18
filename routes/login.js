@@ -20,7 +20,11 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/', (req, res) => {
-    res.render('login-roll', null)  
+    if (router.get('env') == 'development') {
+        res.header({ 'Access-Control-Allow-Origin': 'http://localhost:5500', 'Access-Control-Allow-Credentials': 'true' }).json(member);
+        return;
+    }
+    res.header({ 'Access-Control-Allow-Origin': 'https://daniascienceclub.cf', 'Access-Control-Allow-Credentials': 'true' }).render('login-roll', null)  
 });
 
 module.exports = router;

@@ -3,10 +3,10 @@ const db = require('../modules/db');
 const express = require('express');
 const router = express.Router();
 
-const {Member} = require('../models/member')
+const { Member } = require('../models/member')
 const mongoose = require('mongoose');
 
-router.use(express.urlencoded({extended: true}));
+router.use(express.urlencoded({ extended: true }));
 
 // Home endpoint
 router.get('/', (req, res) => res.send('https://daniascienceclub.cf'));
@@ -18,13 +18,25 @@ router.get('/me', auth, async (req, res) => {
     let member = await db.getMemberById(req.member.memberId);
     res.render('profile', member);
 });
-    
-    
+
+
+
+
+router.get('/who', auth, async (req, res) => {
+    let member = await db.getMemberById(req.member.memberId);
+    if (router.get('env') == 'development') {
+        res.header({ 'Access-Control-Allow-Origin': 'http://localhost:5500', 'Access-Control-Allow-Credentials': 'true' }).json(member);
+        return;
+    }
+    res.header({ 'Access-Control-Allow-Origin': 'http://localhost:5500', 'Access-Control-Allow-Credentials': 'true' }).json(member);
+});
+
+
 
 router.get('/validation/:email', async (req, res) => {
 
 
-    const result = await Member.findOne({email: req.params.email});
+    const result = await Member.findOne({ email: req.params.email });
     if (result) return res.send(true);
     res.status(404).send(false);
 });
