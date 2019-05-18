@@ -24,11 +24,11 @@ router.get('/me', auth, async (req, res) => {
 
 router.get('/who', auth, async (req, res) => {
     let member = await db.getMemberById(req.member.memberId);
-    if (router.get('env') == 'development') {
-        res.header({ 'Access-Control-Allow-Origin': 'http://localhost:5500', 'Access-Control-Allow-Credentials': 'true' }).json(member);
-        return;
-    }
-    res.header({ 'Access-Control-Allow-Origin': 'http://localhost:5500', 'Access-Control-Allow-Credentials': 'true' }).json(member);
+    // if (router.get('env') == 'development') {
+    //     res.header({ 'Access-Control-Allow-Origin': 'http://localhost:5500', 'Access-Control-Allow-Credentials': 'true' }).json(member);
+    //     return;
+    // }
+    res.header({ 'Access-Control-Allow-Origin': 'https://daniascienceclub.cf', 'Access-Control-Allow-Credentials': 'true' }).json(member);
 });
 
 
