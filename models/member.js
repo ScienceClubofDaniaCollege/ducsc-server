@@ -24,7 +24,7 @@ const memberSchema = new mongoose.Schema({
 });
 
 memberSchema.methods.generateAuthToken = function () {
-    const token = jwt.sign({memberId: this.memberId, email: this.email, isAdmin: this.isAdmin, isApproved: this.isApproved}, 'pk');
+    const token = jwt.sign({memberId: this.memberId, email: this.email, isAdmin: this.isAdmin, isApproved: this.isApproved, photo: this.photo}, 'pk');
     return token;
 }
 // setting model
