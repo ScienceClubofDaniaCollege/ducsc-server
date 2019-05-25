@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const config = require('config');
 const Joi = require('Joi');
 
-const schema = new mongoose.schema({
+const schema = new mongoose.Schema({
     title: {type: String, required: true},
     description: {type: String, required: true},
     category: {type: String, required: true},
