@@ -56,7 +56,7 @@ router.get('/reset/setpassword', async (req, res) => {
     console.log( result.passwordReset[0] +'=='+ req.query.t);
     console.log( (Date.now() - result.passwordReset[1]) < 600000);
     
-    if (resettable) return res.send(`<form action=${req.url} method='post'><input name='newpassword' placeholder='New Password'><input type='submit' value='Submit'></form>` )    
+    if (resettable) return res.send(`<form action=/member${req.url} method='post'><input name='newpassword' placeholder='New Password'><input type='submit' value='Submit'></form>` )    
     res.send('Invalid reset URL');
 
 
