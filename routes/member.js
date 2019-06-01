@@ -56,23 +56,23 @@ router.get('/reset/setpassword', async (req, res) => {
     console.log( result.passwordReset[0] +'=='+ req.query.t);
     console.log( (Date.now() - result.passwordReset[1]) < 600000);
     
-    
+    if (resettable) return res.send(`<form action=${req.url} method='post'><input name='newpassword' placeholder='New Password'><input type='submit' value='Submit'></form>` )    
+    res.send('Invalid reset URL');
+
+
+});
+
+router.post('/reset/setpassword', async (req, res) => {
+    const result = await Member.findOne({ roll: req.query.roll });
+    const resettable = result.passwordReset[0] == req.query.t && ((Date.now() - result.passwordReset[1]) < 600000);
     if (resettable) {
         const salt = await bcrypt.genSalt(10);
         const newResult = await Member.findOneAndUpdate({ roll: req.query.roll }, 
            { $set: {
-                password: await bcrypt.hash(req.query.newpassword, salt)
+                password: await bcrypt.hash(req.body.newpassword, salt)
             }}, {new: true}
-        )
-        res.send('Great fill up the form')
-        console.log(newResult);
-        return;
-        
-    }
-    res.send('something went wrong')
-
-
-});
+        )}
+})
 
 
 
