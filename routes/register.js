@@ -48,7 +48,7 @@ router.post('/', upload.reg.single('photo'), async (req, res) => {
         if (express().get('env') == 'development') {
             member.photo = ["https://i.imgur.com/fIgVWP1.png"];
         }
-        let salt = await bcrypt.genSalt(10);
+        const salt = await bcrypt.genSalt(10);
         member.password = await bcrypt.hash(member.password, salt);
         member.memberId = generateMemberId();
         await db.createMember(member);

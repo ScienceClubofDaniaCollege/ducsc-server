@@ -12,15 +12,15 @@ const ftp = require('../modules/ftp');
 const mailer = require('../modules/mailer');
 const express = require('express');
 const router = express.Router();
-const {Member} = require('../models/member');
- 
-router.use(express.urlencoded({extended: true}));
+const { Member } = require('../models/member');
+
+router.use(express.urlencoded({ extended: true }));
 // login and registration endpoints
-router.post('/update-image',auth, upload.upd.single('newImage'), async (req, res) => {
+router.post('/update-image', auth, upload.upd.single('newImage'), async (req, res) => {
     try {
         const imgurLink = await imgur.uploadImg(`public/members-image/${req.file.filename}`);
-        const newImages = {photo: [imgurLink, `${config.get('ftp.server-address')}/${req.file.filename}`]}
-        const result =await db.updateOneMember(req.member.memberId, newImages);
+        const newImages = { photo: [imgurLink, `${config.get('ftp.server-address')}/${req.file.filename}`] }
+        const result = await db.updateOneMember(req.member.memberId, newImages);
         ftp.putFile(`public/members-image/${req.file.filename}`, `htdocs/test/${req.file.filename}`);
         res.redirect('/me');
     }
@@ -30,22 +30,40 @@ router.post('/update-image',auth, upload.upd.single('newImage'), async (req, res
 });
 
 router.get('/reset/getlink', async (req, res) => {
-    let result = await Member.findOne({roll: req.query.roll});
+    let result = await Member.findOne({ roll: req.query.roll });
     if (result) {
-        let resetData = await Member.findOneAndUpdate({roll: req.query.roll}, {
-            $set :{
+        let resetData = await Member.findOneAndUpdate({ roll: req.query.roll }, {
+            $set: {
                 passwordReset: [Math.random(), Date.now()]
             }, new: true
         })
         let link = resetData.passwordReset[0];
         console.log(resetData + result);
-        
+
         res.send('We sent you an email with a link to reset your password.')
 
-        mailer.sendEmailForPassReset(result.email, 'https://dscapi.herokuapp.com/reset/setpassword?roll='+result.roll+'t='+link)
+        mailer.sendEmailForPassReset(result.email, 'https://dscapi.herokuapp.com/reset/setpassword?roll=' + result.roll + '&t=' + link)
         return;
     }
     res.send('No member found with the given roll.')
+});
+
+router.get('/reset/setpassword', async (req, res) => {
+    const result = await Member.findOne({ roll: req.query.roll });
+    const resettable = result.passwordReset[0] == req.query.t && ((Date.now() - result.passwordReset[1]) < 600000)
+    console.log('time: '+(Date.now() - result.passwordReset[1]));
+    
+    if (resettable) {
+        const salt = await bcrypt.genSalt(10);
+        const newResult = await Member.findOneAndUpdate({ roll: req.query.roll }, {
+            $set: {
+                password: await bcrypt.hash(member.password, salt)
+            }, new: true
+        })
+        console.log(newResult);
+        
+    }
+
 });
 
 
@@ -55,7 +73,7 @@ router.post('/update', auth, async (req, res) => {
     // if (error) return res.status(400).send(error.details[0].message);
     let member = req.body;
     console.log(member);
-    
+
     // member = await db.getMemberByEmail(req.body.email);
     // if (member) return res.send('<br><br><br><h1>Someone has already registered with the given email address</h1>');
     // member = await db.getMemberByPhone(req.body.phone);
