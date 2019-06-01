@@ -54,15 +54,19 @@ router.get('/reset/setpassword', async (req, res) => {
     console.log('time: '+(Date.now() - result.passwordReset[1]));
     
     if (resettable) {
-        const salt = await bcrypt.genSalt(10);
-        const newResult = await Member.findOneAndUpdate({ roll: req.query.roll }, {
-            $set: {
-                password: await bcrypt.hash(req.query.newpassword, salt)
-            }, new: true
-        })
+        // const salt = await bcrypt.genSalt(10);
+        // const newResult = await Member.findOneAndUpdate({ roll: req.query.roll }, {
+        //     $set: {
+        //         password: await bcrypt.hash(req.query.newpassword, salt)
+        //     }, new: true
+        // })
+        res.send('Great fill up the form')
         console.log(newResult);
+        return;
         
     }
+    res.send('something went wrong')
+
 
 });
 
