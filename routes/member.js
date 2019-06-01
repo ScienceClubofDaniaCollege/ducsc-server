@@ -71,7 +71,11 @@ router.post('/reset/setpassword', async (req, res) => {
            { $set: {
                 password: await bcrypt.hash(req.body.newpassword, salt)
             }}, {new: true}
-        )}
+        )
+        if (newResult) return res.send('Password reseted successfully! Now you can login with your new password')
+    }
+    res.send('Something went wrong.')
+    
 })
 
 
