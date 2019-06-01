@@ -57,7 +57,7 @@ router.get('/reset/setpassword', async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const newResult = await Member.findOneAndUpdate({ roll: req.query.roll }, {
             $set: {
-                password: await bcrypt.hash(member.password, salt)
+                password: await bcrypt.hash(req.query.newpassword, salt)
             }, new: true
         })
         console.log(newResult);
