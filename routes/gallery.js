@@ -3,7 +3,8 @@ const { auth } = require('../middleware/auth');
 const _ = require('lodash');
 const config = require('config');
 const imgur = require('../modules/imgur');
-const upload = require('../modules/multer');
+var multer  = require('multer')
+var upload = multer({ dest: 'public/gallery-image' })
 const db = require('../modules/db');
 const ftp = require('../modules/ftp');
 const mailer = require('../modules/mailer');
@@ -12,7 +13,7 @@ const router = express.Router();
 const { Gallery, validate } = require('../models/gallery');
 
 // login and registration endpoints
-router.post('/', upload.upd.single('newImage'), async (req, res) => {
+router.post('/', upload.single('newImage'), async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     try {
