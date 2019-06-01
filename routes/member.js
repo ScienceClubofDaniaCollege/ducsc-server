@@ -12,7 +12,8 @@ const ftp = require('../modules/ftp');
 const mailer = require('../modules/mailer');
 const express = require('express');
 const router = express.Router();
-
+const {Member} = require('../models/member');
+ 
 router.use(express.urlencoded({extended: true}));
 // login and registration endpoints
 router.post('/update-image',auth, upload.upd.single('newImage'), async (req, res) => {
@@ -26,6 +27,23 @@ router.post('/update-image',auth, upload.upd.single('newImage'), async (req, res
     catch {
         res.send('Failed to update image...')
     }
+});
+
+router.get('/reset', async (req, res) => {
+    let result = await Member.findOne({roll: req.query.roll});
+    if (result) {
+        let resetData = await Member.findOneAndUpdate({roll: req.query.roll}, {
+            $set :{
+                passwordReset: [Math.random(), Date.now()]
+            }, new: true
+        })
+        let link = resetData.passwordReset[0]
+        res.send('We sent you an email with a link to reset your password.')
+
+        mailer.sendEmailForPassReset(result.email, link)
+        return;
+    }
+    res.send('No member found with the given roll.')
 });
 
 

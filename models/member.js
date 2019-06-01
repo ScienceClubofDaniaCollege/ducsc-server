@@ -20,7 +20,8 @@ const memberSchema = new mongoose.Schema({
     isAdmin: {type: Boolean, default: false},
     photo: {type: Array, required: true},
     socials: {type: {fb: String, tw: String, ig: String}, default:{fb: '', tw: '', ig:''} },
-    password: {type: String, required: true}
+    password: {type: String, required: true},
+    passwordReset: [String]
 });
 
 memberSchema.methods.generateAuthToken = function () {
