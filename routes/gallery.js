@@ -32,6 +32,10 @@ router.post('/', upload.single('newImage'), async (req, res) => {
 
 
 router.get('/', async (req, res) => {
+    if (req.query.cat) {
+        res.header({ 'Access-Control-Allow-Origin': '*'}).json(await Gallery.find({category: req.query.cat}));
+        return;
+    }
     const result = await Gallery.find();
     res.header({ 'Access-Control-Allow-Origin': '*'}).json(result);
 });
