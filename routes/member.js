@@ -37,7 +37,9 @@ router.get('/reset', async (req, res) => {
                 passwordReset: [Math.random(), Date.now()]
             }, new: true
         })
-        let link = resetData.passwordReset[0]
+        let link = resetData.passwordReset[0];
+        console.log(resetData + result);
+        
         res.send('We sent you an email with a link to reset your password.')
 
         mailer.sendEmailForPassReset(result.email, link)
