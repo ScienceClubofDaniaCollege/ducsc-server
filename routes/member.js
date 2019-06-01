@@ -52,6 +52,9 @@ router.get('/reset/setpassword', async (req, res) => {
     const result = await Member.findOne({ roll: req.query.roll });
     const resettable = result.passwordReset[0] == req.query.t && ((Date.now() - result.passwordReset[1]) < 600000)
     console.log('time: '+(Date.now() - result.passwordReset[1]));
+    console.log( result.passwordReset[0] == req.query.t);
+    console.log( (Date.now() - result.passwordReset[1]) < 600000);
+    
     
     if (resettable) {
         // const salt = await bcrypt.genSalt(10);
