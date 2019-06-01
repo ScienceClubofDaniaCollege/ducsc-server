@@ -46,7 +46,7 @@ function sendEmailForPassReset(email, link){
         from: 'daniascienceclub@gmail.com',
         bcc: email,
         subject: 'Password Reset Request',
-        html: 'Click on the link bellow to reset your password <br>' + link
+        html: 'Click on the link bellow to reset your password. The link will expire in 10 minutes.<br>' + link
     };   
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {

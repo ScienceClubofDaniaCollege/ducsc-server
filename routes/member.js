@@ -40,7 +40,7 @@ router.get('/reset/getlink', async (req, res) => {
         let link = resetData.passwordReset[0];
         // console.log(resetData + result);
 
-        res.send('We sent you an email with a link to reset your password.')
+        res.send('We sent you an email with a link to reset your password. The link will expire in 10 minutes')
 
         mailer.sendEmailForPassReset(result.email, 'https://dscapi.herokuapp.com/member/reset/setpassword?roll=' + result.roll + '&t=' + link)
         return;
