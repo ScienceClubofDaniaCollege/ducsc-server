@@ -33,7 +33,7 @@ router.post('/', upload.single('newImage'), async (req, res) => {
 
 router.get('/', async (req, res) => {
     const result = await Gallery.find();
-    res.json(result);
+    res.header({ 'Access-Control-Allow-Origin': '*'}).json(result);
 });
 
 module.exports = router;
