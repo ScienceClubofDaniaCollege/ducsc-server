@@ -90,9 +90,7 @@ const updateMemberInfo = async (memberId, newInfo) => {
     return result;
 };
 const updateOneMember = async (memberId, newInfo) => {
-    const result = await Member.updateOne({memberId: memberId}, {
-        $set: newInfo
-        }, {new: true});
+    const result = await Member.updateOne({memberId: memberId}, {$set: newInfo}, {new: true});
     return result;
 };
 exports.getOneMember = getOneMember;

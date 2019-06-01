@@ -35,14 +35,14 @@ router.get('/reset/getlink', async (req, res) => {
         let resetData = await Member.findOneAndUpdate({ roll: req.query.roll }, {
             $set: {
                 passwordReset: [Math.random(), Date.now()]
-            }, new: true
-        })
+            }}, {new: true}
+        )
         let link = resetData.passwordReset[0];
-        console.log(resetData + result);
+        // console.log(resetData + result);
 
         res.send('We sent you an email with a link to reset your password.')
 
-        mailer.sendEmailForPassReset(result.email, 'https://dscapi.herokuapp.com/reset/setpassword?roll=' + result.roll + '&t=' + link)
+        mailer.sendEmailForPassReset(result.email, 'https://dscapi.herokuapp.com/member/reset/setpassword?roll=' + result.roll + '&t=' + link)
         return;
     }
     res.send('No member found with the given roll.')
@@ -58,12 +58,12 @@ router.get('/reset/setpassword', async (req, res) => {
     
     
     if (resettable) {
-        // const salt = await bcrypt.genSalt(10);
-        // const newResult = await Member.findOneAndUpdate({ roll: req.query.roll }, {
-        //     $set: {
-        //         password: await bcrypt.hash(req.query.newpassword, salt)
-        //     }, new: true
-        // })
+        const salt = await bcrypt.genSalt(10);
+        const newResult = await Member.findOneAndUpdate({ roll: req.query.roll }, 
+           { $set: {
+                password: await bcrypt.hash(req.query.newpassword, salt)
+            }}, {new: true}
+        )
         res.send('Great fill up the form')
         console.log(newResult);
         return;
