@@ -29,7 +29,7 @@ router.post('/update-image',auth, upload.upd.single('newImage'), async (req, res
     }
 });
 
-router.get('/reset', async (req, res) => {
+router.get('/reset/getlink', async (req, res) => {
     let result = await Member.findOne({roll: req.query.roll});
     if (result) {
         let resetData = await Member.findOneAndUpdate({roll: req.query.roll}, {
@@ -42,7 +42,7 @@ router.get('/reset', async (req, res) => {
         
         res.send('We sent you an email with a link to reset your password.')
 
-        mailer.sendEmailForPassReset(result.email, link)
+        mailer.sendEmailForPassReset(result.email, 'https://dscapi.herokuapp.com/reset/setpassword?roll='+result.roll+'t='+link)
         return;
     }
     res.send('No member found with the given roll.')
