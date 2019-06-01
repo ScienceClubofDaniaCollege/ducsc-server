@@ -53,6 +53,7 @@ router.get('/reset/setpassword', async (req, res) => {
     const resettable = result.passwordReset[0] == req.query.t && ((Date.now() - result.passwordReset[1]) < 600000)
     console.log('time: '+(Date.now() - result.passwordReset[1]));
     console.log( result.passwordReset[0] == req.query.t);
+    console.log( result.passwordReset[0] +'=='+ req.query.t);
     console.log( (Date.now() - result.passwordReset[1]) < 600000);
     
     
