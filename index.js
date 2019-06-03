@@ -32,9 +32,4 @@ app.use('/gallery', gallery);
 db.connect();
 const ip = require('ip');
 app.listen(port, () => console.log(`Listening on port ${port}! http://${ip.address()}:${port}/`));
-// console.log(process.env.NODE_ENV != 'development');
-// console.log(app.get('env') != 'development');
-// console.log(express().get('env'));
-// console.log((express().get('env') != 'development'));
-// console.log((express().get('env')));
 
