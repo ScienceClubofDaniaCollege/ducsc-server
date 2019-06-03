@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 function sendEmailToNewMember(emailAddress){
 
     const mailOptions = {
-        from: 'daniascienceclub@gmail.com',
+        from: 'Dania Science Club<daniascienceclub@gmail.com>',
         to: emailAddress,
         subject: 'Thank you for registering as a member of DSC',
         text: 'Thank You very much for registering as a member of Dania Science Club. Now you can login to our website and edit your profile from https://daniascienceclun.cf/html/member-area.html'
@@ -28,7 +28,7 @@ function sendEmailToNewMember(emailAddress){
 }
 function sendEmailToAllMembers(subject, html, emails){
     const mailOptions = {
-        from: 'daniascienceclub@gmail.com',
+        from: 'Dania Science Club<daniascienceclub@gmail.com>',
         bcc: emails,
         subject: subject,
         html: html
@@ -43,7 +43,7 @@ function sendEmailToAllMembers(subject, html, emails){
 }
 function sendEmailForPassReset(email, link){
     const mailOptions = {
-        from: 'daniascienceclub@gmail.com',
+        from: 'Dania Science Club<daniascienceclub@gmail.com>',
         bcc: email,
         subject: 'Password Reset Request',
         html: 'Click on the link bellow to reset your password. The link will expire in 10 minutes.<br>' + link
