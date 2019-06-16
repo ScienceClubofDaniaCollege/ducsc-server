@@ -15,7 +15,7 @@ const gallery = require('./routes/gallery')
 
 const port = process.env.PORT || 3000;
 
-app.use('/static', express.static('public'));
+app.use('/', express.static('public'));
 
 app.set('view engine', 'pug')
 

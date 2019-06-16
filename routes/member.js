@@ -15,6 +15,13 @@ const router = express.Router();
 const { Member } = require('../models/member');
 
 router.use(express.urlencoded({ extended: true }));
+
+
+// getting all the members
+router.get('/', async (req, res) => {
+    const result = await Member.find().select('-_id -password -passwordReset');
+    res.json(result);
+});
 // login and registration endpoints
 router.post('/update-image', auth, upload.upd.single('newImage'), async (req, res) => {
     try {
@@ -98,6 +105,15 @@ router.post('/update', auth, async (req, res) => {
 
 router.get('/', (req, res) => {
     res.render('register', null);
+});
+
+
+router.post('/approve/:memberId',async function (req, res) {
+    const result = await db.approveMember(req.params.memberId);
+    if (result){
+        res.send('Member approved!')
+    }
+    else { res.send('Could not approve member')}
 });
 
 module.exports = router;
