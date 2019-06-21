@@ -20,7 +20,7 @@ router.use(express.urlencoded({ extended: true }));
 // getting all the members
 router.get('/', async (req, res) => {
     const result = await Member.find().select('-_id -password -passwordReset');
-    res.json(result);
+    res.header({ 'Access-Control-Allow-Origin': '*'}).json(result);
 });
 // login and registration endpoints
 router.post('/update-image', auth, upload.upd.single('newImage'), async (req, res) => {
