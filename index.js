@@ -1,3 +1,4 @@
+require('dotenv').config();
 // all the packeges and their settings
 const cookieParser = require('cookie-parser');
 const express = require('express');
@@ -13,7 +14,11 @@ const listMember = require('./routes/list-member')
 const gallery = require('./routes/gallery')
 
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
+
+console.log(process.env.PORT);
+console.log(process.env.NODE_ENV);
+
 
 app.use('/', express.static('public'));
 

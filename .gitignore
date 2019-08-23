@@ -3,3 +3,4 @@ dev/
 README.md
 secret
 test.js
+.env

@@ -3,14 +3,14 @@ const jwt = require('jsonwebtoken');
 function auth (req, res, next) {
     const token = req.cookies.token;
     
-    if (!token) return res.header({ 'Access-Control-Allow-Origin': 'https://daniascienceclub.cf', 'Access-Control-Allow-Credentials': 'true' }).status(403).redirect('/login');
+    if (!token) return res.header({ 'Access-Control-Allow-Origin': 'https://daniascienceclub.ml', 'Access-Control-Allow-Credentials': 'true' }).status(403).redirect('/login');
     try {
         const decoded = jwt.verify(token, 'pk');
         req.member = decoded;
         next();
     }
     catch(ex) {
-        res.header({ 'Access-Control-Allow-Origin': 'https://daniascienceclub.cf', 'Access-Control-Allow-Credentials': 'true' }).status(400).send('Invalid Token');
+        res.header({ 'Access-Control-Allow-Origin': 'https://daniascienceclub.ml', 'Access-Control-Allow-Credentials': 'true' }).status(400).send('Invalid Token');
     }
 }
 

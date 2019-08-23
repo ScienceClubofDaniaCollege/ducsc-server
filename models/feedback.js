@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('@hapi/joi');
 const mongoose = require('mongoose');
 // creating schema and model
 const memberSchema = new mongoose.Schema({

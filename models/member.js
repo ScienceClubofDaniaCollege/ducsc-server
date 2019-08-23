@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const Joi = require('joi');
+const Joi = require('@hapi/joi');
 const mongoose = require('mongoose');
 const config = require('config');
 // creating schema and model
