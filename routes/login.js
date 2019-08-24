@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
     //     res.header({ 'Access-Control-Allow-Origin': 'http://localhost:5500', 'Access-Control-Allow-Credentials': 'true' }).json(member);
     //     return;
     // }
-    res.header({ 'Access-Control-Allow-Origin': 'https://daniascienceclub.ml', 'Access-Control-Allow-Credentials': 'true' }).render('login-roll')  
+    res.header({ 'Access-Control-Allow-Origin': 'https://daniasc.team', 'Access-Control-Allow-Credentials': 'true' }).render('login-roll')  
 });
 
 module.exports = router;

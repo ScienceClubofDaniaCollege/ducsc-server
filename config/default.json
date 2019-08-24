@@ -1,5 +1,12 @@
 {
     "name": "Development",
+    "app":{
+        "name": "DSC-API",
+        "url":{
+            "server": "http://localhost:4000",
+            "client": "http://localhost:5000"
+        }
+    },
     "database": {
         "con-string": "",
         "cn": "dev-member"

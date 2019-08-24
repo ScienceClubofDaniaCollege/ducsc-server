@@ -1,5 +1,12 @@
 {
     "name": "Production",
+    "app":{
+        "name": "DSC-API",
+        "url":{
+            "server": "https://dsc.nhas.me",
+            "client": "https://daniasc.team"
+        }
+    },
     "database": {
         "con-string": "",
         "cn": "prod-member"
