@@ -24,7 +24,7 @@ html.noscroll(lang='en')
               tr
                   - const fullName = n.fname+' '+n.lname;
                   td.picture
-                    - let smallImage = [n.photo[0].slice(0, -4), 's', n.photo[0].slice(-4)].join('');
+                    - let smallImage = [ n.photo[0] && n.photo[0].slice(0, -4), 's', n.photo[0].slice(-4)].join('');
                     if n.photo[0]
                       img.pp(src=`${smallImage}`, alt=`${fullName}'s Picture` style="height: 80px;object-fit: cover;width: 80px;")
                     else 
