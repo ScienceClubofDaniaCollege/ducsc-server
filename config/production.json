@@ -4,7 +4,7 @@
         "name": "DSC-API",
         "url":{
             "server": "https://dsc.nhas.me",
-            "client": "https://daniasc.team"
+            "client": "https://ducsc.github.io"
         }
     },
     "database": {

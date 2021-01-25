@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 router.use(express.urlencoded({ extended: true }));
 
 // Home endpoint
-router.get('/', (req, res) => res.send('https://daniasc.team'));
+router.get('/', (req, res) => res.send('https://ducsc.github.io'));
 
 
 router.get('/test', (req, res) => res.render('test'));
@@ -26,10 +26,10 @@ router.get('/who/v1', auth, async (req, res) => {
     //     res.header({ 'Access-Control-Allow-Origin': 'http://localhost:5500', 'Access-Control-Allow-Credentials': 'true' }).json(member);
     //     return;
     // }
-    res.header({ 'Access-Control-Allow-Origin': 'https://daniasc.team', 'Access-Control-Allow-Credentials': 'true' }).json(member);
+    res.header({ 'Access-Control-Allow-Origin': 'https://ducsc.github.io', 'Access-Control-Allow-Credentials': 'true' }).json(member);
 });
 router.get('/who/v2', auth, async (req, res) => {
-    res.header({ 'Access-Control-Allow-Origin': 'https://daniasc.team', 'Access-Control-Allow-Credentials': 'true' }).json(req.member);
+    res.header({ 'Access-Control-Allow-Origin': 'https://ducsc.github.io', 'Access-Control-Allow-Credentials': 'true' }).json(req.member);
 });
 
 
